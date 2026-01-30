@@ -1,0 +1,24 @@
+{
+  "name": "clawpay-wallet-skill",
+  "version": "1.0.0",
+  "description": "ClawPay payment wallet for Clawdbot skills",
+  "main": "skill.js",
+  "scripts": {
+    "test": "node skill.js check test-skill 0x1234...",
+    "skill:check": "node skill.js check",
+    "skill:info": "node skill.js skill"
+  },
+  "dependencies": {
+    "dotenv": "^17.2.3",
+    "ethers": "^6.9.0"
+  },
+  "clawdbot": {
+    "name": "clawpay",
+    "description": "USDC wallet for paying skill developers",
+    "commands": [
+      "clawpay check <skill-id>",
+      "clawpay info <skill-id>",
+      "clawpay earnings"
+    ]
+  }
+}

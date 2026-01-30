@@ -1,0 +1,7 @@
+{
+  "outputDirectory": "dist",
+  "rewrites": [
+    { "source": "/clawpay", "destination": "/clawpay.html" },
+    { "source": "/clawpaydashboard", "destination": "/clawpaydashboard.html" }
+  ]
+}
