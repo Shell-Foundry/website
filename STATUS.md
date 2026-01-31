@@ -3,10 +3,10 @@
 ## ✅ COMPLETED - ClawPay Rebrand (from PayClawd)
 All user-facing code has been updated:
 - ✅ Product name: ClawPay
-- ✅ Company: ClawShellDev
-- ✅ Domain: ClawShellDev.com
-- ✅ X/Twitter: @ClawShellDev
-- ✅ Reddit: u/ClawShellDev
+- ✅ Company: ShellFoundry
+- ✅ Domain: ShellFoundry.com
+- ✅ X/Twitter: @ShellFoundry
+- ✅ Reddit: u/ShellFoundry
 - ✅ Skill folder: skill-clawpay/
 - ✅ Contract: ClawPaySplitter.sol
 - ✅ All documentation updated
@@ -34,7 +34,7 @@ cd /root/clawd/dashboard
 vercel --token WDNHR6P69VyiI9XYhuHE7kWE --prod
 ```
 
-### 2. Set Up ClawShellDev.com Website
+### 2. Set Up ShellFoundry.com Website
 **Option A: Simple HTML (Recommended)**
 - Create index.html with ClawPay info
 - Upload to GoDaddy hosting
@@ -44,7 +44,7 @@ vercel --token WDNHR6P69VyiI9XYhuHE7kWE --prod
 - Use Next.js or similar
 - More complex, overkill for MVP
 
-### 3. Set Up dev@ClawShellDev.com Email
+### 3. Set Up dev@ShellFoundry.com Email
 **Option A: Email Forwarding (Free)**
 - Use ImprovMX or GoDaddy forwarding
 - Forwards to your Gmail
@@ -56,7 +56,7 @@ vercel --token WDNHR6P69VyiI9XYhuHE7kWE --prod
 ## 🎯 RECOMMENDED NEXT ACTIONS
 
 1. **Fix Vercel URL** (5 minutes)
-2. **Create simple landing page** for ClawShellDev.com (30 minutes)
+2. **Create simple landing page** for ShellFoundry.com (30 minutes)
 3. **Set up email forwarding** (15 minutes)
 4. **Start finding pilot devs** for ClawPay
 

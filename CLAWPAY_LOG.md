@@ -1,18 +1,18 @@
 # ClawPay Project Log
 ## Started: 2026-01-30 as PayClawd
 ## Rebranded: 2026-01-30 to ClawPay
-## Parent Company Rebrand: 2026-01-30 to ClawShellDev
+## Parent Company Rebrand: 2026-01-30 to ShellFoundry
 
 ### BRAND
 - **Product Name:** ClawPay
-- **Parent Company:** ClawShellDev 🐚
+- **Parent Company:** ShellFoundry 🐚
 - **Tagline:** Payment infrastructure for OpenClaw skills
 
 ### FOUNDER PRESENCE
-- **X/Twitter:** @ClawShellDev
-- **Reddit:** u/ClawShellDev
-- **Domain:** ClawShellDev.com (purchased)
-- **Email:** dev@ClawShellDev.com (pending setup)
+- **X/Twitter:** @ShellFoundry
+- **Reddit:** u/ShellFoundry
+- **Domain:** ShellFoundry.com (purchased)
+- **Email:** dev@ShellFoundry.com (pending setup)
 
 ### LIVE URLS
 - **Dashboard:** https://clawpay-dashboard.vercel.app
@@ -27,7 +27,7 @@
 6. ✅ All documentation updated
 
 ### PENDING REQUESTS
-1. ⏳ Set up clawshelldev.com website (GoDaddy)
+1. ⏳ Set up shellfoundry.com website (GoDaddy)
 2. ⏳ Set up dev@shellfoundry.com email
 3. ⏳ Deploy to mainnet ($20-50)
 4. ⏳ Find pilot developers

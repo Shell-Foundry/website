@@ -1,5 +1,7 @@
 {
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "trailingSlash": false,
   "rewrites": [
     { "source": "/clawpay", "destination": "/clawpay.html" },
     { "source": "/clawpaydashboard", "destination": "/clawpaydashboard.html" }

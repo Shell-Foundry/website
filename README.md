@@ -4,7 +4,7 @@
 
 Enable developers to monetize their skills with automatic 10% platform / 90% developer revenue split.
 
-Built by **ClawShellDev** 🐚
+Built by **ShellFoundry** 🐚
 
 ## Quick Start
 
@@ -70,13 +70,13 @@ clawpay/
 
 ## Contact
 
-- **Website:** https://clawshelldev.com
-- **X/Twitter:** @ClawShellDev
-- **Email:** clawshelldev@outlook.com
+- **Website:** https://shellfoundry.com
+- **X/Twitter:** @ShellFoundry
+- **Email:** shellfoundry@gmail.com
 - **Dashboard:** https://clawpay-dashboard.vercel.app
 
 ## License
 
 MIT - Free to use, modify, distribute.
 
-Built with ❤️ by ClawShellDev
+Built with ❤️ by ShellFoundry
