@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClawPay - Payment Infrastructure for OpenClaw Skills</title>
+    <title>ClawPay — Payment Infrastructure for OpenClaw Skills</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -18,16 +18,16 @@
                     },
                     colors: {
                         primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
                         }
                     }
                 }
@@ -36,51 +36,55 @@
     </script>
     <style>
         .gradient-text {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #2563eb 100%);
+            background: linear-gradient(135deg, #0b0e11 0%, #111418 50%, #1a1f24 100%);
+        }
+        .terminal-green {
+            color: #4ade80;
         }
         .code-block {
-            background: #1e293b;
+            background: #0b0e11;
+            border: 1px solid #1f2933;
             border-radius: 12px;
             overflow-x: auto;
         }
         .step-number {
             width: 40px;
             height: 40px;
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: #4ade80;
+            color: #0b0e11;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: white;
             font-weight: 700;
             flex-shrink: 0;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans">
+<body class="bg-[#0b0e11] text-slate-300 font-sans">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+    <nav class="fixed top-0 left-0 right-0 bg-[#0b0e11]/80 backdrop-blur-md border-b border-slate-800 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="./index.html" class="flex items-center space-x-2">
-                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">S</span>
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
                     </div>
-                    <span class="font-display font-bold text-xl text-slate-900">ShellFoundry</span>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="./index.html" class="text-slate-600 hover:text-primary-600 font-medium transition">Home</a>
-                    <a href="#overview" class="text-slate-600 hover:text-primary-600 font-medium transition">Overview</a>
-                    <a href="#how-it-works" class="text-slate-600 hover:text-primary-600 font-medium transition">How It Works</a>
-                    <a href="#integration" class="text-slate-600 hover:text-primary-600 font-medium transition">Integration</a>
+                    <a href="./index.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Home</a>
+                    <a href="#overview" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Overview</a>
+                    <a href="#how-it-works" class="text-slate-400 hover:text-[#4ade80] font-medium transition">How It Works</a>
+                    <a href="#integration" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Integration</a>
                 </div>
-                <a href="./clawpaydashboard.html" class="hidden md:inline-flex items-center px-4 py-2 gradient-bg text-white font-medium rounded-lg hover:opacity-90 transition">
+                <a href="./clawpaydashboard.html" class="hidden md:inline-flex items-center px-4 py-2 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-lg hover:bg-[#22c55e] transition">
                     Dashboard
                 </a>
             </div>
@@ -88,22 +92,22 @@
     </nav>
 
     <!-- Hero -->
-    <section class="pt-32 pb-20 gradient-bg">
+    <section class="pt-32 pb-20 bg-[#111418] border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div class="inline-flex items-center px-4 py-2 rounded-full bg-white/20 text-white text-sm font-medium mb-6">
+            <div class="inline-flex items-center px-4 py-2 rounded-full bg-[#4ade80]/10 text-[#4ade80] text-sm font-medium mb-6 border border-[#4ade80]/20">
                 Payment Infrastructure
             </div>
             <h1 class="font-display font-bold text-5xl sm:text-6xl text-white mb-6">
                 ClawPay
             </h1>
-            <p class="text-xl text-white/80 max-w-2xl mx-auto mb-8">
+            <p class="text-xl text-slate-400 max-w-2xl mx-auto mb-8">
                 USDC Payment System for OpenClaw Skills. Enable developers to monetize their skills with automatic 10% platform / 90% developer revenue split.
             </p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center">
-                <a href="./clawpaydashboard.html" class="inline-flex items-center justify-center px-8 py-4 bg-white text-primary-700 font-semibold rounded-xl hover:bg-slate-100 transition text-lg">
+                <a href="./clawpaydashboard.html" class="inline-flex items-center justify-center px-8 py-4 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-xl hover:bg-[#22c55e] transition text-lg">
                     Launch Dashboard
                 </a>
-                <a href="#integration" class="inline-flex items-center justify-center px-8 py-4 bg-white/20 text-white font-semibold rounded-xl hover:bg-white/30 transition text-lg">
+                <a href="#integration" class="inline-flex items-center justify-center px-8 py-4 bg-slate-800 text-white font-semibold rounded-xl border border-slate-700 hover:border-[#4ade80] hover:text-[#4ade80] transition text-lg">
                     View Documentation
                 </a>
             </div>
@@ -111,78 +115,78 @@
     </section>
 
     <!-- Overview -->
-    <section id="overview" class="py-20 bg-white">
+    <section id="overview" class="py-20 bg-[#0b0e11]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-display font-bold text-4xl text-slate-900 mb-4">Why ClawPay?</h2>
-                <p class="text-xl text-slate-600 max-w-2xl mx-auto">
+                <h2 class="font-display font-bold text-4xl text-white mb-4">Why ClawPay?</h2>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
                     The easiest way to add payments to your OpenClaw skills. No complex setup, no hidden fees.
                 </p>
             </div>
 
             <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="text-center p-6 bg-[#111418] rounded-2xl border border-slate-800">
+                    <div class="w-16 h-16 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#4ade80]/20">
+                        <svg class="w-8 h-8 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Instant Payouts</h3>
-                    <p class="text-slate-600">Get paid instantly in USDC on the Base network. No waiting, no delays.</p>
+                    <h3 class="font-display font-bold text-xl text-white mb-2">Instant Payouts</h3>
+                    <p class="text-slate-500">Get paid instantly in USDC on the Base network. No waiting, no delays.</p>
                 </div>
 
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="text-center p-6 bg-[#111418] rounded-2xl border border-slate-800">
+                    <div class="w-16 h-16 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#4ade80]/20">
+                        <svg class="w-8 h-8 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">90% Revenue Share</h3>
-                    <p class="text-slate-600">Developers keep 90% of all revenue. Only 10% platform fee.</p>
+                    <h3 class="font-display font-bold text-xl text-white mb-2">90% Revenue Share</h3>
+                    <p class="text-slate-500">Developers keep 90% of all revenue. Only 10% platform fee.</p>
                 </div>
 
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="text-center p-6 bg-[#111418] rounded-2xl border border-slate-800">
+                    <div class="w-16 h-16 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#4ade80]/20">
+                        <svg class="w-8 h-8 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Secure & Verified</h3>
-                    <p class="text-slate-600">Smart contract audited and verified on Base blockchain.</p>
+                    <h3 class="font-display font-bold text-xl text-white mb-2">Secure & Verified</h3>
+                    <p class="text-slate-500">Smart contract audited and verified on Base blockchain.</p>
                 </div>
 
-                <div class="text-center p-6">
-                    <div class="w-16 h-16 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-4">
-                        <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <div class="text-center p-6 bg-[#111418] rounded-2xl border border-slate-800">
+                    <div class="w-16 h-16 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-4 border border-[#4ade80]/20">
+                        <svg class="w-8 h-8 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
                         </svg>
                     </div>
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-2">Simple Integration</h3>
-                    <p class="text-slate-600">Just 7 lines of code to add payments to your skill.</p>
+                    <h3 class="font-display font-bold text-xl text-white mb-2">Simple Integration</h3>
+                    <p class="text-slate-500">Just 7 lines of code to add payments to your skill.</p>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- How It Works -->
-    <section id="how-it-works" class="py-20 bg-slate-50">
+    <section id="how-it-works" class="py-20 bg-[#111418] border-t border-slate-800">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-display font-bold text-4xl text-slate-900 mb-4">How It Works</h2>
-                <p class="text-xl text-slate-600">Three simple steps to start monetizing your skills</p>
+                <h2 class="font-display font-bold text-4xl text-white mb-4">How It Works</h2>
+                <p class="text-xl text-slate-400">Three simple steps to start monetizing your skills</p>
             </div>
 
             <div class="space-y-12">
                 <!-- Step 1 -->
                 <div class="flex flex-col md:flex-row gap-6 items-start">
                     <div class="step-number">1</div>
-                    <div class="flex-1 bg-white p-8 rounded-2xl border border-slate-200">
-                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-3">Register Your Skill</h3>
-                        <p class="text-slate-600 mb-4">
+                    <div class="flex-1 bg-[#0b0e11] p-8 rounded-2xl border border-slate-800">
+                        <h3 class="font-display font-bold text-2xl text-white mb-3">Register Your Skill</h3>
+                        <p class="text-slate-400 mb-4">
                             Connect your wallet and register your skill with a unique ID and pricing. The smart contract handles all the payment infrastructure automatically.
                         </p>
                         <div class="code-block p-4">
-                            <code class="text-green-400 text-sm">
+                            <code class="text-[#4ade80] text-sm font-mono">
                                 # Register via dashboard or CLI<br>
                                 Skill ID: my-awesome-skill<br>
                                 Price: 10 USDC<br>
@@ -195,16 +199,16 @@
                 <!-- Step 2 -->
                 <div class="flex flex-col md:flex-row gap-6 items-start">
                     <div class="step-number">2</div>
-                    <div class="flex-1 bg-white p-8 rounded-2xl border border-slate-200">
-                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-3">Integrate Payment Check</h3>
-                        <p class="text-slate-600 mb-4">
+                    <div class="flex-1 bg-[#0b0e11] p-8 rounded-2xl border border-slate-800">
+                        <h3 class="font-display font-bold text-2xl text-white mb-3">Integrate Payment Check</h3>
+                        <p class="text-slate-400 mb-4">
                             Add just 7 lines of code to your skill to check if a user has paid. The smart contract verifies payment automatically.
                         </p>
                         <div class="code-block p-4">
-                            <code class="text-blue-300 text-sm">
-                                <span class="text-purple-400">const</span> hasAccess = <span class="text-yellow-400">await</span> clawpay.<span class="text-green-400">checkPayment</span>({<br>
-                                &nbsp;&nbsp;skillId: <span class="text-orange-300">'my-skill'</span>,<br>
-                                &nbsp;&nbsp;userAddress: <span class="text-orange-300">'0x...'</span><br>
+                            <code class="text-[#4ade80] text-sm font-mono">
+                                const hasAccess = await clawpay.checkPayment({<br>
+                                &nbsp;&nbsp;skillId: 'my-skill',<br>
+                                &nbsp;&nbsp;userAddress: '0x...'<br>
                                 });
                             </code>
                         </div>
@@ -214,19 +218,19 @@
                 <!-- Step 3 -->
                 <div class="flex flex-col md:flex-row gap-6 items-start">
                     <div class="step-number">3</div>
-                    <div class="flex-1 bg-white p-8 rounded-2xl border border-slate-200">
-                        <h3 class="font-display font-bold text-2xl text-slate-900 mb-3">Get Paid Automatically</h3>
-                        <p class="text-slate-600 mb-4">
+                    <div class="flex-1 bg-[#0b0e11] p-8 rounded-2xl border border-slate-800">
+                        <h3 class="font-display font-bold text-2xl text-white mb-3">Get Paid Automatically</h3>
+                        <p class="text-slate-400 mb-4">
                             Every time a user pays for your skill, 90% goes directly to your wallet. Withdraw earnings anytime from the dashboard.
                         </p>
                         <div class="grid grid-cols-2 gap-4 mt-4">
-                            <div class="bg-green-50 p-4 rounded-xl text-center">
-                                <p class="text-green-600 font-bold text-2xl">90%</p>
-                                <p class="text-green-700 text-sm">To Developer</p>
+                            <div class="bg-[#4ade80]/10 p-4 rounded-xl text-center border border-[#4ade80]/20">
+                                <p class="text-[#4ade80] font-bold text-2xl">90%</p>
+                                <p class="text-slate-400 text-sm">To Developer</p>
                             </div>
-                            <div class="bg-blue-50 p-4 rounded-xl text-center">
-                                <p class="text-blue-600 font-bold text-2xl">10%</p>
-                                <p class="text-blue-700 text-sm">Platform Fee</p>
+                            <div class="bg-slate-800 p-4 rounded-xl text-center border border-slate-700">
+                                <p class="text-slate-300 font-bold text-2xl">10%</p>
+                                <p class="text-slate-500 text-sm">Platform Fee</p>
                             </div>
                         </div>
                     </div>
@@ -236,87 +240,87 @@
     </section>
 
     <!-- Integration Guide -->
-    <section id="integration" class="py-20 bg-white">
+    <section id="integration" class="py-20 bg-[#0b0e11]">
         <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="text-center mb-16">
-                <h2 class="font-display font-bold text-4xl text-slate-900 mb-4">Integration Guide</h2>
-                <p class="text-xl text-slate-600">Add payments to your skill in minutes</p>
+                <h2 class="font-display font-bold text-4xl text-white mb-4">Integration Guide</h2>
+                <p class="text-xl text-slate-400">Add payments to your skill in minutes</p>
             </div>
 
             <div class="space-y-8">
                 <!-- Step 1: Install -->
-                <div class="bg-slate-50 rounded-2xl p-8">
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-primary-600 text-white rounded-lg flex items-center justify-center text-sm mr-3">1</span>
+                <div class="bg-[#111418] rounded-2xl p-8 border border-slate-800">
+                    <h3 class="font-display font-bold text-xl text-white mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-[#4ade80] text-[#0b0e11] rounded-lg flex items-center justify-center text-sm mr-3">1</span>
                         Install the ClawPay Skill
                     </h3>
                     <div class="code-block p-4">
-                        <code class="text-green-400 text-sm">
-                            <span class="text-slate-400"># Clone the skill</span><br>
+                        <code class="text-[#4ade80] text-sm font-mono">
+                            # Clone the skill<br>
                             git clone https://github.com/shellfoundry/skill-clawpay.git<br><br>
-                            <span class="text-slate-400"># Install dependencies</span><br>
+                            # Install dependencies<br>
                             cd skill-clawpay && npm install
                         </code>
                     </div>
                 </div>
 
                 <!-- Step 2: Configure -->
-                <div class="bg-slate-50 rounded-2xl p-8">
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-primary-600 text-white rounded-lg flex items-center justify-center text-sm mr-3">2</span>
+                <div class="bg-[#111418] rounded-2xl p-8 border border-slate-800">
+                    <h3 class="font-display font-bold text-xl text-white mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-[#4ade80] text-[#0b0e11] rounded-lg flex items-center justify-center text-sm mr-3">2</span>
                         Configure Environment
                     </h3>
                     <div class="code-block p-4">
-                        <code class="text-blue-300 text-sm">
-                            <span class="text-slate-400"># .env file</span><br>
-                            CLAWPAY_CONTRACT_TESTNET=<span class="text-orange-300">0x72CaF410E276c50e2f5a5C76f9348242c66bE86c</span><br>
-                            ALCHEMY_API_KEY=<span class="text-orange-300">your_key_here</span>
+                        <code class="text-[#4ade80] text-sm font-mono">
+                            # .env file<br>
+                            CLAWPAY_CONTRACT_TESTNET=0x72CaF410E276c50e2f5a5C76f9348242c66bE86c<br>
+                            ALCHEMY_API_KEY=your_key_here
                         </code>
                     </div>
                 </div>
 
                 <!-- Step 3: Add to Skill -->
-                <div class="bg-slate-50 rounded-2xl p-8">
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-primary-600 text-white rounded-lg flex items-center justify-center text-sm mr-3">3</span>
+                <div class="bg-[#111418] rounded-2xl p-8 border border-slate-800">
+                    <h3 class="font-display font-bold text-xl text-white mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-[#4ade80] text-[#0b0e11] rounded-lg flex items-center justify-center text-sm mr-3">3</span>
                         Add Payment Check to Your Skill
                     </h3>
                     <div class="code-block p-4">
-                        <code class="text-blue-300 text-sm">
-                            <span class="text-purple-400">const</span> ClawPay = <span class="text-yellow-400">require</span>(<span class="text-orange-300">'skill-clawpay'</span>);<br><br>
-                            <span class="text-purple-400">const</span> clawpay = <span class="text-yellow-400">new</span> ClawPay({<br>
-                            &nbsp;&nbsp;network: <span class="text-orange-300">'testnet'</span> <span class="text-slate-400">// or 'mainnet'</span><br>
+                        <code class="text-[#4ade80] text-sm font-mono">
+                            const ClawPay = require('skill-clawpay');<br><br>
+                            const clawpay = new ClawPay({<br>
+                            &nbsp;&nbsp;network: 'testnet' // or 'mainnet'<br>
                             });<br><br>
-                            <span class="text-slate-400">// In your skill handler:</span><br>
-                            <span class="text-purple-400">async function</span> <span class="text-yellow-400">handleSkill</span>(userAddress) {<br>
-                            &nbsp;&nbsp;<span class="text-purple-400">const</span> hasPaid = <span class="text-yellow-400">await</span> clawpay.<span class="text-green-400">checkPayment</span>({<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;skillId: <span class="text-orange-300">'my-skill'</span>,<br>
+                            // In your skill handler:<br>
+                            async function handleSkill(userAddress) {<br>
+                            &nbsp;&nbsp;const hasPaid = await clawpay.checkPayment({<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;skillId: 'my-skill',<br>
                             &nbsp;&nbsp;&nbsp;&nbsp;userAddress<br>
                             &nbsp;&nbsp;});<br><br>
-                            &nbsp;&nbsp;<span class="text-yellow-400">if</span> (!hasPaid) {<br>
-                            &nbsp;&nbsp;&nbsp;&nbsp;<span class="text-yellow-400">return</span> <span class="text-orange-300">'Please pay 10 USDC to use this skill'</span>;<br>
+                            &nbsp;&nbsp;if (!hasPaid) {<br>
+                            &nbsp;&nbsp;&nbsp;&nbsp;return 'Please pay 10 USDC to use this skill';<br>
                             &nbsp;&nbsp;}<br><br>
-                            &nbsp;&nbsp;<span class="text-slate-400">// Process the skill...</span><br>
+                            &nbsp;&nbsp;// Process the skill...<br>
                             }
                         </code>
                     </div>
                 </div>
 
                 <!-- Step 4: Register -->
-                <div class="bg-slate-50 rounded-2xl p-8">
-                    <h3 class="font-display font-bold text-xl text-slate-900 mb-4 flex items-center">
-                        <span class="w-8 h-8 bg-primary-600 text-white rounded-lg flex items-center justify-center text-sm mr-3">4</span>
+                <div class="bg-[#111418] rounded-2xl p-8 border border-slate-800">
+                    <h3 class="font-display font-bold text-xl text-white mb-4 flex items-center">
+                        <span class="w-8 h-8 bg-[#4ade80] text-[#0b0e11] rounded-lg flex items-center justify-center text-sm mr-3">4</span>
                         Register Your Skill
                     </h3>
-                    <p class="text-slate-600 mb-4">
-                        Use the <a href="./clawpaydashboard.html" class="text-primary-600 hover:underline font-medium">Developer Dashboard</a> to register your skill with a price and start accepting payments.
+                    <p class="text-slate-400 mb-4">
+                        Use the <a href="./clawpaydashboard.html" class="text-[#4ade80] hover:underline font-medium">Developer Dashboard</a> to register your skill with a price and start accepting payments.
                     </p>
                 </div>
             </div>
 
             <!-- CTA -->
             <div class="mt-12 text-center">
-                <a href="./clawpaydashboard.html" class="inline-flex items-center justify-center px-8 py-4 gradient-bg text-white font-semibold rounded-xl hover:opacity-90 transition text-lg">
+                <a href="./clawpaydashboard.html" class="inline-flex items-center justify-center px-8 py-4 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-xl hover:bg-[#22c55e] transition text-lg">
                     Get Started Now
                     <svg class="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"></path>
@@ -327,30 +331,30 @@
     </section>
 
     <!-- Contract Info -->
-    <section class="py-20 bg-slate-900 text-white">
+    <section class="py-20 bg-[#111418] border-t border-slate-800">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 class="font-display font-bold text-3xl mb-8">Smart Contract</h2>
-            <div class="bg-slate-800 rounded-2xl p-8">
+            <h2 class="font-display font-bold text-3xl text-white mb-8">Smart Contract</h2>
+            <div class="bg-[#0b0e11] rounded-2xl p-8 border border-slate-800">
                 <div class="grid md:grid-cols-2 gap-8 text-left">
                     <div>
-                        <p class="text-slate-400 text-sm mb-1">Contract Address (Testnet)</p>
-                        <code class="text-green-400 text-sm break-all">0x72CaF410E276c50e2f5a5C76f9348242c66bE86c</code>
+                        <p class="text-slate-500 text-sm mb-1">Contract Address (Testnet)</p>
+                        <code class="text-[#4ade80] text-xs break-all">0x72CaF410E276c50e2f5a5C76f9348242c66bE86c</code>
                     </div>
                     <div>
-                        <p class="text-slate-400 text-sm mb-1">Network</p>
+                        <p class="text-slate-500 text-sm mb-1">Network</p>
                         <p class="text-white font-medium">Base Sepolia Testnet</p>
                     </div>
                     <div>
-                        <p class="text-slate-400 text-sm mb-1">Fee Split</p>
+                        <p class="text-slate-500 text-sm mb-1">Fee Split</p>
                         <p class="text-white font-medium">10% Platform / 90% Developer</p>
                     </div>
                     <div>
-                        <p class="text-slate-400 text-sm mb-1">Payment Token</p>
+                        <p class="text-slate-500 text-sm mb-1">Payment Token</p>
                         <p class="text-white font-medium">USDC on Base</p>
                     </div>
                 </div>
-                <div class="mt-8 pt-8 border-t border-slate-700">
-                    <a href="https://sepolia.basescan.org/address/0x72CaF410E276c50e2f5a5C76f9348242c66bE86c" target="_blank" class="inline-flex items-center text-primary-400 hover:text-primary-300 transition">
+                <div class="mt-8 pt-8 border-t border-slate-800">
+                    <a href="https://sepolia.basescan.org/address/0x72CaF410E276c50e2f5a5C76f9348242c66bE86c" target="_blank" class="inline-flex items-center text-[#4ade80] hover:text-[#22c55e] transition">
                         View on BaseScan
                         <svg class="w-4 h-4 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -361,24 +365,61 @@
         </div>
     </section>
 
+    <!-- Contact Section -->
+    <section id="contact" class="py-20 bg-[#0b0e11]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="font-display font-bold text-4xl text-white mb-4">Get In Touch</h2>
+            <p class="text-xl text-slate-400 mb-8">
+                Have questions or want to collaborate? We'd love to hear from you.
+            </p>
+            
+            <div class="inline-flex items-center px-8 py-4 bg-[#111418] rounded-2xl border border-slate-800 mb-8">
+                <div class="w-12 h-12 bg-[#4ade80] rounded-xl flex items-center justify-center mr-4">
+                    <svg class="w-6 h-6 text-[#0b0e11]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                    </svg>
+                </div>
+                <div class="text-left">
+                    <p class="text-sm text-slate-500 font-medium uppercase tracking-wide">Email Us</p>
+                    <a href="mailto:ShellFoundry@gmail.com" class="text-lg font-semibold text-white hover:text-[#4ade80] transition">
+                        ShellFoundry@gmail.com
+                    </a>
+                </div>
+            </div>
+
+            <div class="flex justify-center space-x-6">
+                <a href="https://x.com/ShellFoundry" target="_blank" class="w-14 h-14 bg-[#111418] rounded-full flex items-center justify-center text-slate-400 hover:bg-[#4ade80] hover:text-[#0b0e11] transition border border-slate-800">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"></path>
+                    </svg>
+                </a>
+                <a href="https://www.reddit.com/r/ShellFoundry/" target="_blank" class="w-14 h-14 bg-[#111418] rounded-full flex items-center justify-center text-slate-400 hover:bg-[#4ade80] hover:text-[#0b0e11] transition border border-slate-800">
+                    <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M12 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0zm5.01 4.744c.688 0 1.25.561 1.25 1.249a1.25 1.25 0 0 1-2.498.056l-2.597-.547-.8 3.747c1.824.07 3.48.632 4.674 1.488.308-.309.73-.491 1.207-.491.968 0 1.754.786 1.754 1.754 0 .716-.435 1.333-1.01 1.614a3.111 3.111 0 0 1 .042.52c0 2.694-3.13 4.87-7.004 4.87-3.874 0-7.004-2.176-7.004-4.87 0-.183.015-.366.043-.534A1.748 1.748 0 0 1 4.028 12c0-.968.786-1.754 1.754-1.754.463 0 .898.196 1.207.49 1.207-.883 2.878-1.43 4.744-1.487l.885-4.182a.342.342 0 0 1 .14-.197.35.35 0 0 1 .238-.042l2.906.617a1.214 1.214 0 0 1 1.108-.701zM9.25 12C8.561 12 8 12.562 8 13.25c0 .687.561 1.248 1.25 1.248.687 0 1.248-.561 1.248-1.249 0-.688-.561-1.249-1.249-1.249zm5.5 0c-.687 0-1.248.561-1.248 1.25 0 .687.561 1.248 1.249 1.248.688 0 1.249-.561 1.249-1.25 0-.687-.562-1.249-1.25-1.249zm-5.466 3.99a.327.327 0 0 0-.231.094.33.33 0 0 0 0 .463c.842.842 2.484.913 2.961.913.477 0 2.105-.056 2.961-.913a.361.361 0 0 0 .029-.463.33.33 0 0 0-.464 0c-.547.533-1.684.73-2.512.73-.828 0-1.979-.196-2.512-.73a.326.326 0 0 0-.232-.095z"></path>
+                    </svg>
+                </a>
+            </div>
+        </div>
+    </section>
+
     <!-- Footer -->
-    <footer class="bg-slate-950 text-white py-12">
+    <footer class="bg-[#111418] border-t border-slate-800 py-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                    <div class="w-8 h-8 bg-white/20 rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">S</span>
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
                     </div>
-                    <span class="font-display font-bold text-xl">ShellFoundry</span>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
                 </div>
-                <div class="flex items-center space-x-6 text-slate-400">
-                    <a href="./index.html" class="hover:text-white transition">Home</a>
-                    <a href="./clawpaydashboard.html" class="hover:text-white transition">Dashboard</a>
-                    <a href="mailto:dev@shellfoundry.com" class="hover:text-white transition">Contact</a>
+                <div class="flex items-center space-x-6 text-slate-500">
+                    <a href="./index.html" class="hover:text-[#4ade80] transition">Home</a>
+                    <a href="./clawpaydashboard.html" class="hover:text-[#4ade80] transition">Dashboard</a>
+                    <a href="mailto:ShellFoundry@gmail.com" class="hover:text-[#4ade80] transition">Contact</a>
                 </div>
             </div>
-            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-slate-500 text-sm">
-                © 2026 ShellFoundry. All rights reserved.
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
+                © 2026 ShellFoundry. All rights reserved. Built with ❤️ for developers.
             </div>
         </div>
     </footer>

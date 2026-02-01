@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ClawPay Dashboard - Developer Portal</title>
+    <title>ClawPay Dashboard — Developer Portal</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -19,16 +19,16 @@
                     },
                     colors: {
                         primary: {
-                            50: '#eff6ff',
-                            100: '#dbeafe',
-                            200: '#bfdbfe',
-                            300: '#93c5fd',
-                            400: '#60a5fa',
-                            500: '#3b82f6',
-                            600: '#2563eb',
-                            700: '#1d4ed8',
-                            800: '#1e40af',
-                            900: '#1e3a8a',
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
                         }
                     }
                 }
@@ -37,46 +37,46 @@
     </script>
     <style>
         .gradient-text {
-            background: linear-gradient(135deg, #2563eb 0%, #7c3aed 100%);
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
         .gradient-bg {
-            background: linear-gradient(135deg, #1e3a8a 0%, #7c3aed 50%, #2563eb 100%);
+            background: linear-gradient(135deg, #0b0e11 0%, #111418 50%, #1a1f24 100%);
         }
         .glass-card {
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(17, 20, 24, 0.8);
             backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(74, 222, 128, 0.1);
         }
         .card-hover {
             transition: transform 0.2s ease, box-shadow 0.2s ease;
         }
         .card-hover:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 10px 40px rgba(74, 222, 128, 0.1);
         }
         .animate-pulse-slow {
             animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite;
         }
     </style>
 </head>
-<body class="bg-slate-50 text-slate-800 font-sans min-h-screen">
+<body class="bg-[#0b0e11] text-slate-300 font-sans min-h-screen">
     <!-- Navigation -->
-    <nav class="fixed top-0 left-0 right-0 bg-white/80 backdrop-blur-md border-b border-slate-200 z-50">
+    <nav class="fixed top-0 left-0 right-0 bg-[#0b0e11]/80 backdrop-blur-md border-b border-slate-800 z-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
                 <a href="./index.html" class="flex items-center space-x-2">
-                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">S</span>
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
                     </div>
-                    <span class="font-display font-bold text-xl text-slate-900">ShellFoundry</span>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
                 </a>
                 <div class="hidden md:flex space-x-8">
-                    <a href="./index.html" class="text-slate-600 hover:text-primary-600 font-medium transition">Home</a>
-                    <a href="./clawpay.html" class="text-slate-600 hover:text-primary-600 font-medium transition">About ClawPay</a>
-                    <a href="#" class="text-primary-600 font-medium">Dashboard</a>
+                    <a href="./index.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Home</a>
+                    <a href="./clawpay.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">About ClawPay</a>
+                    <a href="#" class="text-[#4ade80] font-medium">Dashboard</a>
                 </div>
                 <div id="nav-wallet" class="hidden md:flex items-center space-x-2">
                     <span class="text-sm text-slate-500">Not connected</span>
@@ -86,25 +86,25 @@
     </nav>
 
     <!-- Hero Header -->
-    <div class="pt-24 pb-8 gradient-bg">
+    <div class="pt-24 pb-8 bg-[#111418] border-b border-slate-800">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-start md:items-center">
                 <div>
                     <div class="flex items-center space-x-3 mb-2">
-                        <div class="w-12 h-12 bg-white/20 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-12 h-12 bg-[#4ade80]/10 rounded-xl flex items-center justify-center border border-[#4ade80]/20">
+                            <svg class="w-6 h-6 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
                         <div>
                             <h1 class="text-3xl font-display font-bold text-white">ClawPay Dashboard</h1>
-                            <p class="text-white/70 text-sm">Developer Portal</p>
+                            <p class="text-slate-400 text-sm">Developer Portal</p>
                         </div>
                     </div>
                 </div>
                 <div class="mt-4 md:mt-0">
-                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-white/20 text-white text-sm">
-                        <span class="w-2 h-2 bg-green-400 rounded-full mr-2 animate-pulse"></span>
+                    <span class="inline-flex items-center px-3 py-1 rounded-full bg-[#4ade80]/10 text-[#4ade80] text-sm border border-[#4ade80]/20">
+                        <span class="w-2 h-2 bg-[#4ade80] rounded-full mr-2 animate-pulse"></span>
                         Testnet Mode
                     </span>
                 </div>
@@ -115,17 +115,17 @@
     <!-- Main Content -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <!-- Connect Wallet Section -->
-        <div id="connect-section" class="bg-white rounded-2xl border border-slate-200 p-12 text-center shadow-sm">
-            <div class="w-20 h-20 gradient-bg rounded-2xl flex items-center justify-center mx-auto mb-6">
-                <svg class="w-10 h-10 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <div id="connect-section" class="bg-[#111418] rounded-2xl border border-slate-800 p-12 text-center shadow-sm">
+            <div class="w-20 h-20 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#4ade80]/20">
+                <svg class="w-10 h-10 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                 </svg>
             </div>
-            <h2 class="text-2xl font-display font-bold text-slate-900 mb-3">Connect Your Wallet</h2>
-            <p class="text-slate-600 mb-8 max-w-md mx-auto">
+            <h2 class="text-2xl font-display font-bold text-white mb-3">Connect Your Wallet</h2>
+            <p class="text-slate-400 mb-8 max-w-md mx-auto">
                 Connect your wallet to view earnings, manage your skills, and withdraw funds.
             </p>
-            <button onclick="connectWallet()" class="inline-flex items-center px-8 py-4 gradient-bg text-white font-semibold rounded-xl hover:opacity-90 transition text-lg shadow-lg shadow-primary-500/25">
+            <button onclick="connectWallet()" class="inline-flex items-center px-8 py-4 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-xl hover:bg-[#22c55e] transition text-lg shadow-lg shadow-[#4ade80]/20">
                 <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                 </svg>
@@ -135,7 +135,7 @@
                 Supported: MetaMask, Rabby, Coinbase Wallet, Rainbow, WalletConnect
             </p>
             <div class="mt-4 flex justify-center space-x-4">
-                <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center" title="MetaMask">
+                <div class="w-8 h-8 bg-[#1a1f24] rounded-lg flex items-center justify-center border border-slate-800" title="MetaMask">
                     <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>
                         <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>
@@ -143,10 +143,10 @@
                         <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/>
                     </svg>
                 </div>
-                <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center" title="Rabby">
+                <div class="w-8 h-8 bg-[#1a1f24] rounded-lg flex items-center justify-center border border-slate-800" title="Rabby">
                     <span class="text-xs font-bold text-slate-400">R</span>
                 </div>
-                <div class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center" title="Coinbase">
+                <div class="w-8 h-8 bg-[#1a1f24] rounded-lg flex items-center justify-center border border-slate-800" title="Coinbase">
                     <svg class="w-5 h-5 text-slate-400" viewBox="0 0 24 24" fill="currentColor">
                         <path d="M12 0C5.374 0 0 5.374 0 12s5.374 12 12 12 12-5.374 12-12S18.626 0 12 0zm5.894 8.221l-1.97-.001c-.633 0-.835.285-.835.832v1.66h2.804l-.367 2.904h-2.437v7.392h-3.018v-7.392H9.739V10.71h2.332V8.648c0-2.066 1.262-3.19 3.105-3.19.884 0 1.645.066 1.867.095v2.668h-.149z"/>
                     </svg>
@@ -157,19 +157,19 @@
         <!-- Dashboard (Hidden until connected) -->
         <div id="dashboard" class="hidden space-y-6">
             <!-- Wallet Info Banner -->
-            <div class="bg-primary-50 border border-primary-200 rounded-xl p-4 flex justify-between items-center">
+            <div class="bg-[#4ade80]/10 border border-[#4ade80]/20 rounded-xl p-4 flex justify-between items-center">
                 <div class="flex items-center space-x-3">
-                    <div class="w-10 h-10 bg-primary-100 rounded-lg flex items-center justify-center">
-                        <svg class="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="w-10 h-10 bg-[#4ade80]/20 rounded-lg flex items-center justify-center">
+                        <svg class="w-5 h-5 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                         </svg>
                     </div>
                     <div>
                         <p class="text-sm text-slate-500">Connected Wallet</p>
-                        <p class="font-mono text-slate-900 font-medium" id="wallet-address">0x...</p>
+                        <p class="font-mono text-white font-medium" id="wallet-address">0x...</p>
                     </div>
                 </div>
-                <button onclick="disconnectWallet()" class="text-sm text-slate-500 hover:text-red-600 transition">
+                <button onclick="disconnectWallet()" class="text-sm text-slate-500 hover:text-red-400 transition">
                     Disconnect
                 </button>
             </div>
@@ -177,32 +177,32 @@
             <!-- Stats Grid -->
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 <!-- Total Earnings -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 card-hover">
+                <div class="bg-[#111418] rounded-2xl border border-slate-800 p-6 card-hover">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-green-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-12 h-12 bg-[#4ade80]/10 rounded-xl flex items-center justify-center border border-[#4ade80]/20">
+                            <svg class="w-6 h-6 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Earnings</span>
+                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Earnings</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-slate-900" id="total-earnings">0.00</p>
+                    <p class="text-3xl font-display font-bold text-white" id="total-earnings">0.00</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
                 </div>
 
                 <!-- Pending Withdrawal -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 card-hover">
+                <div class="bg-[#111418] rounded-2xl border border-slate-800 p-6 card-hover">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-primary-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-12 h-12 bg-[#4ade80]/10 rounded-xl flex items-center justify-center border border-[#4ade80]/20">
+                            <svg class="w-6 h-6 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z"></path>
                             </svg>
                         </div>
-                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wide">Available to Withdraw</span>
+                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Available to Withdraw</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-slate-900" id="pending-earnings">0.00</p>
+                    <p class="text-3xl font-display font-bold text-white" id="pending-earnings">0.00</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
-                    <button onclick="withdrawEarnings()" id="withdraw-btn" class="mt-4 w-full py-2 bg-green-500 text-white font-medium rounded-lg hover:bg-green-600 transition flex items-center justify-center">
+                    <button onclick="withdrawEarnings()" id="withdraw-btn" class="mt-4 w-full py-2 bg-[#4ade80] text-[#0b0e11] font-medium rounded-lg hover:bg-[#22c55e] transition flex items-center justify-center">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path>
                         </svg>
@@ -211,31 +211,31 @@
                 </div>
 
                 <!-- Total Sales -->
-                <div class="bg-white rounded-2xl border border-slate-200 p-6 card-hover">
+                <div class="bg-[#111418] rounded-2xl border border-slate-800 p-6 card-hover">
                     <div class="flex items-center justify-between mb-4">
-                        <div class="w-12 h-12 bg-purple-50 rounded-xl flex items-center justify-center">
-                            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <div class="w-12 h-12 bg-slate-800 rounded-xl flex items-center justify-center border border-slate-700">
+                            <svg class="w-6 h-6 text-slate-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path>
                             </svg>
                         </div>
-                        <span class="text-xs font-medium text-slate-400 uppercase tracking-wide">Total Sales</span>
+                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Sales</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-slate-900" id="total-sales">0</p>
+                    <p class="text-3xl font-display font-bold text-white" id="total-sales">0</p>
                     <p class="text-sm text-slate-500 mt-1">Payments received</p>
                 </div>
             </div>
 
             <!-- Skills Table -->
-            <div class="bg-white rounded-2xl border border-slate-200 overflow-hidden">
-                <div class="px-6 py-4 border-b border-slate-200 flex justify-between items-center">
-                    <h3 class="font-display font-bold text-lg text-slate-900">Your Skills</h3>
-                    <button onclick="registerNewSkill()" class="px-4 py-2 bg-primary-600 text-white text-sm font-medium rounded-lg hover:bg-primary-700 transition">
+            <div class="bg-[#111418] rounded-2xl border border-slate-800 overflow-hidden">
+                <div class="px-6 py-4 border-b border-slate-800 flex justify-between items-center">
+                    <h3 class="font-display font-bold text-lg text-white">Your Skills</h3>
+                    <button onclick="registerNewSkill()" class="px-4 py-2 bg-[#4ade80] text-[#0b0e11] text-sm font-medium rounded-lg hover:bg-[#22c55e] transition">
                         + Register New Skill
                     </button>
                 </div>
                 <div class="overflow-x-auto">
                     <table class="w-full">
-                        <thead class="bg-slate-50">
+                        <thead class="bg-[#0b0e11]">
                             <tr>
                                 <th class="text-left py-3 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wide">Skill ID</th>
                                 <th class="text-left py-3 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wide">Name</th>
@@ -245,11 +245,11 @@
                                 <th class="text-center py-3 px-6 text-xs font-semibold text-slate-500 uppercase tracking-wide">Status</th>
                             </tr>
                         </thead>
-                        <tbody id="skills-table" class="divide-y divide-slate-200">
+                        <tbody id="skills-table" class="divide-y divide-slate-800">
                             <tr>
                                 <td colspan="6" class="text-center py-8 text-slate-500">
                                     No skills registered yet. 
-                                    <a href="./clawpay.html" class="text-primary-600 hover:underline">Learn how to register</a>
+                                    <a href="./clawpay.html" class="text-[#4ade80] hover:underline">Learn how to register</a>
                                 </td>
                             </tr>
                         </tbody>
@@ -258,11 +258,11 @@
             </div>
 
             <!-- Recent Transactions -->
-            <div class="bg-white rounded-2xl border border-slate-200 p-6">
-                <h3 class="font-display font-bold text-lg text-slate-900 mb-4">Recent Transactions</h3>
+            <div class="bg-[#111418] rounded-2xl border border-slate-800 p-6">
+                <h3 class="font-display font-bold text-lg text-white mb-4">Recent Transactions</h3>
                 <div id="transactions-list" class="space-y-3">
                     <div class="text-center py-8 text-slate-500">
-                        <svg class="w-12 h-12 mx-auto mb-3 text-slate-300" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <svg class="w-12 h-12 mx-auto mb-3 text-slate-700" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
                         </svg>
                         <p>No transactions yet</p>
@@ -272,20 +272,20 @@
             </div>
 
             <!-- Contract Info -->
-            <div class="bg-slate-900 rounded-2xl p-6 text-white">
+            <div class="bg-[#0b0e11] rounded-2xl p-6 text-white border border-slate-800">
                 <h3 class="font-display font-bold text-lg mb-4">Smart Contract</h3>
                 <div class="grid md:grid-cols-2 gap-4 text-sm">
                     <div>
-                        <p class="text-slate-400 mb-1">Contract Address (Testnet)</p>
-                        <code class="text-green-400 text-xs break-all">0x72CaF410E276c50e2f5a5C76f9348242c66bE86c</code>
+                        <p class="text-slate-500 text-sm mb-1">Contract Address (Testnet)</p>
+                        <code class="text-[#4ade80] text-xs break-all">0x72CaF410E276c50e2f5a5C76f9348242c66bE86c</code>
                     </div>
                     <div>
-                        <p class="text-slate-400 mb-1">Network</p>
+                        <p class="text-slate-500 text-sm mb-1">Network</p>
                         <p class="text-white">Base Sepolia Testnet</p>
                     </div>
                 </div>
                 <div class="mt-4 pt-4 border-t border-slate-800">
-                    <a href="https://sepolia.basescan.org/address/0x72CaF410E276c50e2f5a5C76f9348242c66bE86c" target="_blank" class="text-primary-400 hover:text-primary-300 text-sm inline-flex items-center">
+                    <a href="https://sepolia.basescan.org/address/0x72CaF410E276c50e2f5a5C76f9348242c66bE86c" target="_blank" class="text-[#4ade80] hover:text-[#22c55e] text-sm inline-flex items-center transition">
                         View on BaseScan
                         <svg class="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"></path>
@@ -297,21 +297,21 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-white border-t border-slate-200 py-8 mt-12">
+    <footer class="bg-[#111418] border-t border-slate-800 py-8 mt-12">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <div class="flex items-center space-x-2 mb-4 md:mb-0">
-                    <div class="w-8 h-8 gradient-bg rounded-lg flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">S</span>
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
                     </div>
-                    <span class="font-display font-bold text-xl text-slate-900">ShellFoundry</span>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
                 </div>
                 <div class="text-center md:text-right">
-                    <p class="text-slate-600">
-                        Built with ❤️ by <a href="https://shellfoundry.com" class="text-primary-600 hover:underline">ShellFoundry</a>
+                    <p class="text-slate-400">
+                        Built with ❤️ by <a href="https://shellfoundry.com" class="text-[#4ade80] hover:underline">ShellFoundry</a>
                     </p>
                     <p class="text-sm text-slate-500 mt-1">
-                        Questions? <a href="mailto:dev@shellfoundry.com" class="text-primary-600 hover:underline">dev@shellfoundry.com</a>
+                        Questions? <a href="mailto:ShellFoundry@gmail.com" class="text-[#4ade80] hover:underline">ShellFoundry@gmail.com</a>
                     </p>
                 </div>
             </div>
@@ -359,10 +359,6 @@
                     alert('Please install MetaMask, Rabby, or another Web3 wallet');
                     return;
                 }
-
-                // Try to detect wallet type
-                const isRabby = ethereum.isRabby || (ethereum.providers && ethereum.providers.some(p => p.isRabby));
-                const walletName = isRabby ? 'Rabby' : 'MetaMask';
 
                 provider = new ethers.providers.Web3Provider(ethereum, 'any');
                 await provider.send('eth_requestAccounts', []);
@@ -433,15 +429,15 @@
 
         async function loadSkills() {
             document.getElementById('skills-table').innerHTML = `
-                <tr class="border-b hover:bg-slate-50">
-                    <td class="py-4 px-6 font-mono text-sm text-slate-600">test-weather-pro</td>
-                    <td class="py-4 px-6 text-slate-900 font-medium">Test Weather Pro</td>
-                    <td class="py-4 px-6 text-right text-slate-900">5.00 USDC</td>
-                    <td class="py-4 px-6 text-right text-slate-900">1</td>
-                    <td class="py-4 px-6 text-right text-green-600 font-medium">4.50 USDC</td>
+                <tr class="border-b border-slate-800 hover:bg-[#0b0e11]">
+                    <td class="py-4 px-6 font-mono text-sm text-slate-400">test-weather-pro</td>
+                    <td class="py-4 px-6 text-white font-medium">Test Weather Pro</td>
+                    <td class="py-4 px-6 text-right text-white">5.00 USDC</td>
+                    <td class="py-4 px-6 text-right text-white">1</td>
+                    <td class="py-4 px-6 text-right text-[#4ade80] font-medium">4.50 USDC</td>
                     <td class="py-4 px-6 text-center">
-                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                            <span class="w-1.5 h-1.5 bg-green-500 rounded-full mr-1.5"></span>
+                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20">
+                            <span class="w-1.5 h-1.5 bg-[#4ade80] rounded-full mr-1.5"></span>
                             Active
                         </span>
                     </td>
