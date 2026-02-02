@@ -1,0 +1,11 @@
+{
+  "name": "shellfoundry-website",
+  "version": "1.0.0",
+  "description": "ShellFoundry website with ClawPay API",
+  "scripts": {
+    "test": "echo 'No tests'"
+  },
+  "dependencies": {
+    "ethers": "^5.7.2"
+  }
+}
