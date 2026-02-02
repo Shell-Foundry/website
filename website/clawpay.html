@@ -122,6 +122,92 @@
         </div>
     </section>
 
+    <!-- Payment Interface (Shows when skill parameter is present) -->
+    <section id="payment-interface" class="py-20 bg-[#0b0e11] border-b border-slate-800" style="display: none;">
+        <div class="max-w-2xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="bg-[#111418] rounded-2xl border border-slate-800 p-8">
+                <div class="text-center mb-8">
+                    <div class="inline-flex items-center px-4 py-2 rounded-full bg-[#4ade80]/10 text-[#4ade80] text-sm font-medium mb-4 border border-[#4ade80]/20">
+                        Skill Payment
+                    </div>
+                    <h2 class="font-display font-bold text-3xl text-white mb-2" id="skill-name">Loading...</h2>
+                    <p class="text-slate-400">Pay to access this premium skill</p>
+                </div>
+
+                <!-- Not Connected State -->
+                <div id="not-connected" class="text-center py-8">
+                    <div class="w-20 h-20 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#4ade80]/20">
+                        <svg class="w-10 h-10 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a1 1 0 11-2 0 1 1 0 012 0z"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-4">Connect Your Wallet</h3>
+                    <p class="text-slate-400 mb-6">Connect your wallet to view skill details and make payment</p>
+                    <button onclick="connectWallet()" class="inline-flex items-center justify-center px-8 py-4 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-xl hover:bg-[#22c55e] transition text-lg">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                        </svg>
+                        Connect Wallet
+                    </button>
+                    <p class="mt-4 text-sm text-slate-500">Supported: MetaMask, Rabby, Coinbase Wallet</p>
+                </div>
+
+                <!-- Connected - Not Paid State -->
+                <div id="connected-not-paid" class="hidden">
+                    <div class="bg-[#0b0e11] rounded-xl p-6 mb-6 border border-slate-800">
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-400">Skill ID</span>
+                            <code class="text-[#4ade80] font-mono text-sm" id="skill-id-display">-</code>
+                        </div>
+                        <div class="flex justify-between items-center mb-4">
+                            <span class="text-slate-400">Developer</span>
+                            <code class="text-white font-mono text-sm" id="developer-display">-</code>
+                        </div>
+                        <div class="flex justify-between items-center pt-4 border-t border-slate-800">
+                            <span class="text-lg text-white">Price</span>
+                            <span class="text-2xl font-bold text-[#4ade80]" id="price-display">- USDC</span>
+                        </div>
+                    </div>
+
+                    <button onclick="payForSkill()" id="pay-button" class="w-full inline-flex items-center justify-center px-8 py-4 bg-[#4ade80] text-[#0b0e11] font-semibold rounded-xl hover:bg-[#22c55e] transition text-lg">
+                        <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        Pay <span id="button-price">-</span> USDC
+                    </button>
+
+                    <div class="mt-4 flex items-center justify-center space-x-2 text-sm text-slate-500">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"></path>
+                        </svg>
+                        <span>90% to developer, 10% platform fee</span>
+                    </div>
+                </div>
+
+                <!-- Already Paid State -->
+                <div id="already-paid" class="hidden text-center py-8">
+                    <div class="w-20 h-20 bg-[#4ade80]/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-[#4ade80]/20">
+                        <svg class="w-10 h-10 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-white mb-2">Payment Confirmed!</h3>
+                    <p class="text-slate-400 mb-4">You have already paid for this skill</p>
+                    <div class="bg-[#0b0e11] rounded-lg p-4 border border-slate-800">
+                        <p class="text-sm text-slate-500 mb-1">Transaction</p>
+                        <a id="tx-link" href="#" target="_blank" class="text-[#4ade80] text-sm font-mono hover:underline">View on BaseScan</a>
+                    </div>
+                </div>
+
+                <!-- Payment Processing -->
+                <div id="payment-processing" class="hidden text-center py-8">
+                    <div class="inline-block w-12 h-12 border-4 border-slate-700 border-t-[#4ade80] rounded-full animate-spin mb-4"></div>
+                    <p class="text-slate-400">Processing payment...</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <!-- Overview -->
     <section id="overview" class="py-20 bg-[#0b0e11]">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -437,5 +523,176 @@
             </div>
         </div>
     </footer>
+
+    <!-- Payment Interface JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ethers/5.7.2/ethers.umd.min.js"></script>
+    <script>
+        // Contract Configuration
+        const CONTRACT_ADDRESS = '0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d';
+        const USDC_ADDRESS = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
+        const RPC_URL = 'https://base-mainnet.g.alchemy.com/v2/demo';
+        
+        // Get skill ID from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const skillId = urlParams.get('skill');
+        
+        let provider, signer, contract, usdcContract, userAddress;
+        let skillInfo = null;
+        
+        // Contract ABI (minimal)
+        const CONTRACT_ABI = [
+            "function skills(string calldata skillId) view returns (address developer, uint256 price, bool active, string memory name)",
+            "function checkAccess(string calldata skillId, address user) view returns (bool)",
+            "function payForSkill(string calldata skillId) external",
+            "event PaymentReceived(string skillId, address user, uint256 amount)"
+        ];
+        
+        const USDC_ABI = [
+            "function approve(address spender, uint256 amount) external returns (bool)",
+            "function allowance(address owner, address spender) view returns (uint256)",
+            "function balanceOf(address account) view returns (uint256)",
+            "function decimals() view returns (uint8)"
+        ];
+        
+        // Initialize
+        async function init() {
+            if (skillId) {
+                document.getElementById('payment-interface').style.display = 'block';
+                document.getElementById('skill-id-display').textContent = skillId;
+                await loadSkillInfo();
+            }
+        }
+        
+        // Load skill information
+        async function loadSkillInfo() {
+            try {
+                const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
+                const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+                
+                skillInfo = await contract.skills(skillId);
+                
+                if (skillInfo.developer === '0x0000000000000000000000000000000000000000') {
+                    document.getElementById('skill-name').textContent = 'Skill Not Found';
+                    document.getElementById('not-connected').innerHTML = `
+                        <div class="text-red-400">
+                            <p class="text-xl mb-2">Skill not registered</p>
+                            <p class="text-slate-400">The skill "${skillId}" has not been registered on the contract yet.</p>
+                        </div>
+                    `;
+                    return;
+                }
+                
+                const priceInUSDC = ethers.utils.formatUnits(skillInfo.price, 6);
+                document.getElementById('skill-name').textContent = skillInfo.name || skillId;
+                document.getElementById('price-display').textContent = priceInUSDC + ' USDC';
+                document.getElementById('button-price').textContent = priceInUSDC;
+                document.getElementById('developer-display').textContent = 
+                    skillInfo.developer.slice(0, 6) + '...' + skillInfo.developer.slice(-4);
+                
+            } catch (error) {
+                console.error('Error loading skill:', error);
+                document.getElementById('skill-name').textContent = 'Error Loading Skill';
+            }
+        }
+        
+        // Connect wallet
+        async function connectWallet() {
+            try {
+                const ethereum = window.ethereum || window.rabby;
+                
+                if (!ethereum) {
+                    alert('Please install MetaMask, Rabby, or another Web3 wallet');
+                    return;
+                }
+                
+                provider = new ethers.providers.Web3Provider(ethereum, 'any');
+                await provider.send('eth_requestAccounts', []);
+                signer = provider.getSigner();
+                userAddress = await signer.getAddress();
+                
+                contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
+                
+                // Check if already paid
+                const hasAccess = await contract.checkAccess(skillId, userAddress);
+                
+                if (hasAccess) {
+                    showAlreadyPaid();
+                } else {
+                    showPaymentScreen();
+                }
+                
+            } catch (error) {
+                console.error('Error connecting wallet:', error);
+                alert('Failed to connect wallet: ' + error.message);
+            }
+        }
+        
+        // Show payment screen
+        function showPaymentScreen() {
+            document.getElementById('not-connected').classList.add('hidden');
+            document.getElementById('connected-not-paid').classList.remove('hidden');
+            document.getElementById('already-paid').classList.add('hidden');
+        }
+        
+        // Show already paid screen
+        function showAlreadyPaid() {
+            document.getElementById('not-connected').classList.add('hidden');
+            document.getElementById('connected-not-paid').classList.add('hidden');
+            document.getElementById('already-paid').classList.remove('hidden');
+        }
+        
+        // Pay for skill
+        async function payForSkill() {
+            try {
+                const button = document.getElementById('pay-button');
+                button.disabled = true;
+                button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Processing...';
+                
+                // Check USDC allowance
+                const allowance = await usdcContract.allowance(userAddress, CONTRACT_ADDRESS);
+                
+                if (allowance.lt(skillInfo.price)) {
+                    // Need to approve USDC
+                    button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Approving USDC...';
+                    
+                    const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, ethers.constants.MaxUint256);
+                    await approveTx.wait();
+                }
+                
+                // Pay for skill
+                button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Confirming payment...';
+                
+                const tx = await contract.payForSkill(skillId);
+                const receipt = await tx.wait();
+                
+                // Show success
+                document.getElementById('payment-processing').classList.add('hidden');
+                showAlreadyPaid();
+                
+                // Update tx link
+                const txHash = receipt.transactionHash;
+                document.getElementById('tx-link').href = `https://basescan.org/tx/${txHash}`;
+                
+                alert('Payment successful! You now have access to this skill.');
+                
+            } catch (error) {
+                console.error('Payment error:', error);
+                alert('Payment failed: ' + (error.message || 'Unknown error'));
+                
+                const button = document.getElementById('pay-button');
+                button.disabled = false;
+                button.innerHTML = `
+                    <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                    </svg>
+                    Pay <span id="button-price">${skillInfo ? ethers.utils.formatUnits(skillInfo.price, 6) : '-'}</span> USDC
+                `;
+            }
+        }
+        
+        // Initialize on page load
+        init();
+    </script>
 </body>
 </html>
