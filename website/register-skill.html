@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register Your Skill | ShellFoundry</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Space Grotesk', 'sans-serif'],
+                    },
+                    colors: {
+                        primary: {
+                            50: '#f0fdf4',
+                            100: '#dcfce7',
+                            200: '#bbf7d0',
+                            300: '#86efac',
+                            400: '#4ade80',
+                            500: '#22c55e',
+                            600: '#16a34a',
+                            700: '#15803d',
+                            800: '#166534',
+                            900: '#14532d',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .gradient-text {
+            background: linear-gradient(135deg, #4ade80 0%, #22c55e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+    </style>
+</head>
+<body class="bg-[#0b0e11] text-slate-300 font-sans min-h-screen">
+    <!-- Navigation -->
+    <nav class="fixed top-0 left-0 right-0 bg-[#0b0e11]/80 backdrop-blur-md border-b border-slate-800 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <a href="./index.html" class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
+                    </div>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
+                </a>
+                <div class="hidden md:flex space-x-8">
+                    <a href="./index.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Home</a>
+                    <a href="./clawpay.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">ClawPay</a>
+                    <a href="./clawpaydashboard.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Dashboard</a>
+                    <a href="./proof-of-payments.html" class="text-slate-400 hover:text-[#4ade80] font-medium transition">Payments</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="pt-24 pb-16 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-3xl mx-auto">
+            <!-- Header -->
+            <div class="text-center mb-12">
+                <h1 class="font-display font-bold text-4xl sm:text-5xl text-white mb-4">
+                    Register Your Skill
+                </h1>
+                <p class="text-xl text-slate-400 max-w-2xl mx-auto">
+                    Submit your skill for ClawPay integration. Earn 90% of every payment.
+                </p>
+            </div>
+
+            <!-- Info Cards -->
+            <div class="grid sm:grid-cols-3 gap-4 mb-8">
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-[#4ade80]">90%</div>
+                    <div class="text-sm text-slate-500">You Keep</div>
+                </div>
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-[#4ade80]">Instant</div>
+                    <div class="text-sm text-slate-500">Payouts</div>
+                </div>
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-[#4ade80]">Base</div>
+                    <div class="text-sm text-slate-500">Mainnet</div>
+                </div>
+            </div>
+
+            <!-- Form -->
+            <div class="bg-[#111418] border border-slate-800 rounded-2xl p-8">
+                <form id="skillForm" class="space-y-6">
+                    <!-- Developer Info -->
+                    <div class="border-b border-slate-800 pb-6">
+                        <h2 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-[#4ade80]/10 rounded-lg flex items-center justify-center mr-3 text-[#4ade80] text-sm">1</span>
+                            Developer Information
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Your Name / Handle</label>
+                                <input type="text" name="developerName" required 
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition"
+                                    placeholder="e.g., @YourHandle or Your Name">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Wallet Address (Base Mainnet)</label>
+                                <input type="text" name="walletAddress" required pattern="^0x[a-fA-F0-9]{40}$"
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition font-mono text-sm"
+                                    placeholder="0x... (Where you receive 90% payments)">
+                                <p class="mt-1 text-xs text-slate-500">Must be a valid Base Mainnet address. This is where your earnings go.</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Contact (Telegram/X/Email)</label>
+                                <input type="text" name="contact" required
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition"
+                                    placeholder="How we reach you if needed">
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Skill Info -->
+                    <div class="border-b border-slate-800 pb-6">
+                        <h2 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-[#4ade80]/10 rounded-lg flex items-center justify-center mr-3 text-[#4ade80] text-sm">2</span>
+                            Skill Details
+                        </h2>
+                        
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Skill ID (unique identifier)</label>
+                                <input type="text" name="skillId" required pattern="^[a-z0-9-]+$"
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition font-mono text-sm"
+                                    placeholder="e.g., weather-pro, trading-bot-v1">
+                                <p class="mt-1 text-xs text-slate-500">Lowercase letters, numbers, and hyphens only. No spaces.</p>
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Skill Name (display name)</label>
+                                <input type="text" name="skillName" required
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition"
+                                    placeholder="e.g., Premium Weather Pro">
+                            </div>
+                            
+                            <div>
+                                <label class="block text-sm font-medium text-slate-400 mb-2">Description</label>
+                                <textarea name="description" rows="3" required
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition resize-none"
+                                    placeholder="What does your skill do? Why should users pay for it?"></textarea>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Pricing -->
+                    <div class="border-b border-slate-800 pb-6">
+                        <h2 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-[#4ade80]/10 rounded-lg flex items-center justify-center mr-3 text-[#4ade80] text-sm">3</span>
+                            Pricing
+                        </h2>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">Price (USDC)</label>
+                            <div class="relative">
+                                <input type="number" name="price" required min="0.01" step="0.01"
+                                    class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition pl-12"
+                                    placeholder="5.00">
+                                <span class="absolute left-4 top-3 text-slate-500">$</span>
+                            </div>
+                            <p class="mt-1 text-xs text-slate-500">You receive 90% of this amount. User pays in USDC on Base.</p>
+                        </div>
+                    </div>
+
+                    <!-- Repository -->
+                    <div class="pb-6">
+                        <h2 class="text-lg font-semibold text-white mb-4 flex items-center">
+                            <span class="w-8 h-8 bg-[#4ade80]/10 rounded-lg flex items-center justify-center mr-3 text-[#4ade80] text-sm">4</span>
+                            Code Repository (Optional)
+                        </h2>
+                        
+                        <div>
+                            <label class="block text-sm font-medium text-slate-400 mb-2">GitHub / GitLab URL</label>
+                            <input type="url" name="repoUrl"
+                                class="w-full px-4 py-3 bg-[#0b0e11] border border-slate-700 rounded-lg text-white placeholder-slate-600 focus:outline-none focus:border-[#4ade80] transition"
+                                placeholder="https://github.com/yourname/your-skill">
+                            <p class="mt-1 text-xs text-slate-500">Link to your skill code. Helps with verification.</p>
+                        </div>
+                    </div>
+
+                    <!-- Agreement -->
+                    <div class="flex items-start space-x-3">
+                        <input type="checkbox" name="agreement" required
+                            class="mt-1 w-5 h-5 rounded border-slate-700 bg-[#0b0e11] text-[#4ade80] focus:ring-[#4ade80] focus:ring-offset-0">
+                        <label class="text-sm text-slate-400">
+                            I understand that 10% of all payments go to ShellFoundry as a platform fee. 
+                            I am the owner of this skill and have the right to monetize it. 
+                            My wallet address is correct and I control the private key.
+                        </label>
+                    </div>
+
+                    <!-- Submit -->
+                    <button type="submit" 
+                        class="w-full py-4 bg-[#4ade80] text-[#0b0e11] font-bold text-lg rounded-lg hover:bg-[#22c55e] transition flex items-center justify-center space-x-2">
+                        <span>Submit Registration</span>
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"></path>
+                        </svg>
+                    </button>
+                </form>
+
+                <!-- Loading State -->
+                <div id="loadingState" class="hidden text-center py-12">
+                    <div class="inline-block w-8 h-8 border-2 border-slate-700 border-t-[#4ade80] rounded-full animate-spin mb-4"></div>
+                    <p class="text-slate-400">Submitting your registration...</p>
+                </div>
+
+                <!-- Success State -->
+                <div id="successState" class="hidden text-center py-8">
+                    <div class="w-16 h-16 bg-[#4ade80]/10 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <svg class="w-8 h-8 text-[#4ade80]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-2">Registration Submitted!</h3>
+                    <p class="text-slate-400 mb-6">We'll review your skill and register it on the blockchain within 24 hours. You'll receive a notification when it's live.</p>
+                    <div class="bg-[#0b0e11] rounded-lg p-4 text-left">
+                        <p class="text-sm text-slate-500 mb-1">What happens next:</p>
+                        <ol class="text-sm text-slate-400 list-decimal list-inside space-y-1">
+                            <li>We review your submission (usually within hours)</li>
+                            <li>Your skill is registered on Base Mainnet</li>
+                            <li>Users can start paying for your skill</li>
+                            <li>You receive 90% instantly to your wallet</li>
+                        </ol>
+                    </div>
+                    <a href="./clawpay.html" class="inline-block mt-6 text-[#4ade80] hover:text-[#22c55e] font-medium">
+                        ← Back to ClawPay
+                    </a>
+                </div>
+
+                <!-- Error State -->
+                <div id="errorState" class="hidden bg-red-500/10 border border-red-500/20 rounded-lg p-4 text-center">
+                    <p class="text-red-400">Something went wrong. Please try again or contact us directly.</p>
+                </div>
+            </div>
+
+            <!-- FAQ -->
+            <div class="mt-12 space-y-4">
+                <h3 class="text-xl font-bold text-white mb-6">Frequently Asked Questions</h3>
+                
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-6">
+                    <h4 class="font-semibold text-white mb-2">How long does approval take?</h4>
+                    <p class="text-slate-400 text-sm">Usually within 24 hours. We review submissions to prevent spam and ensure quality.</p>
+                </div>
+                
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-6">
+                    <h4 class="font-semibold text-white mb-2">When do I get paid?</h4>
+                    <p class="text-slate-400 text-sm">Instantly! Every time a user pays for your skill, 90% goes directly to your wallet. No delays, no minimums.</p>
+                </div>
+                
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-6">
+                    <h4 class="font-semibold text-white mb-2">Can I change the price later?</h4>
+                    <p class="text-slate-400 text-sm">Yes! You can update your skill's price anytime after registration. Just contact us.</p>
+                </div>
+                
+                <div class="bg-[#111418] border border-slate-800 rounded-xl p-6">
+                    <h4 class="font-semibold text-white mb-2">What if my skill is free?</h4>
+                    <p class="text-slate-400 text-sm">Set the price to 0. ClawPay will still verify access but won't charge users.</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-[#111418] border-t border-slate-800 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="flex items-center space-x-2 mb-4 md:mb-0">
+                    <div class="w-8 h-8 bg-[#4ade80] rounded-lg flex items-center justify-center">
+                        <span class="text-[#0b0e11] font-bold text-lg">S</span>
+                    </div>
+                    <span class="font-display font-bold text-xl text-white">ShellFoundry</span>
+                </div>
+                <div class="flex items-center space-x-6 text-slate-500">
+                    <a href="./clawpay.html" class="hover:text-[#4ade80] transition">ClawPay</a>
+                    <a href="./clawpaydashboard.html" class="hover:text-[#4ade80] transition">Dashboard</a>
+                    <a href="mailto:ShellFoundry@gmail.com" class="hover:text-[#4ade80] transition">Contact</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-slate-800 text-center text-slate-600 text-sm">
+                © 2026 ShellFoundry. All rights reserved.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.getElementById('skillForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const form = e.target;
+            const formData = new FormData(form);
+            const data = Object.fromEntries(formData);
+            
+            // Show loading
+            form.classList.add('hidden');
+            document.getElementById('loadingState').classList.remove('hidden');
+            
+            try {
+                const response = await fetch('/api/submit-skill', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(data)
+                });
+                
+                if (response.ok) {
+                    document.getElementById('loadingState').classList.add('hidden');
+                    document.getElementById('successState').classList.remove('hidden');
+                } else {
+                    throw new Error('Submission failed');
+                }
+            } catch (error) {
+                document.getElementById('loadingState').classList.add('hidden');
+                document.getElementById('errorState').classList.remove('hidden');
+                form.classList.remove('hidden');
+            }
+        });
+    </script>
+</body>
+</html>
