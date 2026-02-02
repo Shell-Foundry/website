@@ -530,7 +530,7 @@
         // Contract Configuration
         const CONTRACT_ADDRESS = '0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d';
         const USDC_ADDRESS = '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913';
-        const RPC_URL = 'https://base-mainnet.g.alchemy.com/v2/demo';
+        const RPC_URL = 'https://mainnet.base.org';
         
         // Get skill ID from URL
         const urlParams = new URLSearchParams(window.location.search);
@@ -548,10 +548,11 @@
         ];
         
         const USDC_ABI = [
-            "function approve(address spender, uint256 amount) external returns (bool)",
+            "function approve(address spender, uint256 amount) returns (bool)",
             "function allowance(address owner, address spender) view returns (uint256)",
-            "function balanceOf(address account) view returns (uint256)",
-            "function decimals() view returns (uint8)"
+            "function balanceOf(address owner) view returns (uint256)",
+            "function decimals() view returns (uint8)",
+            "function symbol() view returns (string)"
         ];
         
         // Initialize
@@ -566,17 +567,25 @@
         // Load skill information
         async function loadSkillInfo() {
             try {
+                console.log('Loading skill info for:', skillId);
                 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
                 const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
                 
                 skillInfo = await contract.skills(skillId);
+                console.log('Skill info loaded:', skillInfo);
                 
-                if (skillInfo.developer === '0x0000000000000000000000000000000000000000') {
+                if (!skillInfo || skillInfo.developer === '0x0000000000000000000000000000000000000000') {
                     document.getElementById('skill-name').textContent = 'Skill Not Found';
                     document.getElementById('not-connected').innerHTML = `
-                        <div class="text-red-400">
-                            <p class="text-xl mb-2">Skill not registered</p>
-                            <p class="text-slate-400">The skill "${skillId}" has not been registered on the contract yet.</p>
+                        <div class="text-center">
+                            <div class="w-20 h-20 bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+                                <svg class="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+                                </svg>
+                            </div>
+                            <p class="text-xl text-red-400 mb-2">Skill not registered</p>
+                            <p class="text-slate-400 mb-4">The skill "${skillId}" has not been registered on the contract yet.</p>
+                            <p class="text-sm text-slate-500">Contract: ${CONTRACT_ADDRESS}</p>
                         </div>
                     `;
                     return;
@@ -592,17 +601,76 @@
             } catch (error) {
                 console.error('Error loading skill:', error);
                 document.getElementById('skill-name').textContent = 'Error Loading Skill';
+                document.getElementById('not-connected').innerHTML = `
+                    <div class="text-center">
+                        <div class="w-20 h-20 bg-red-500/10 rounded-2xl flex items-center justify-center mx-auto mb-6 border border-red-500/20">
+                            <svg class="w-10 h-10 text-red-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            </svg>
+                        </div>
+                        <p class="text-xl text-red-400 mb-2">Error loading skill</p>
+                        <p class="text-slate-400">${error.message}</p>
+                    </div>
+                `;
             }
         }
         
         // Connect wallet
         async function connectWallet() {
             try {
-                const ethereum = window.ethereum || window.rabby;
+                // Prioritize Rabby, then fall back to ethereum (MetaMask, Phantom, etc.)
+                let ethereum = window.rabby;
+                
+                // If Rabby has ethereum provider, use that
+                if (!ethereum && window.rabby?.ethereum) {
+                    ethereum = window.rabby.ethereum;
+                }
+                
+                // Fall back to window.ethereum if Rabby not available
+                if (!ethereum) {
+                    ethereum = window.ethereum;
+                }
+                
+                // Check if multiple providers exist (e.g., Phantom + Rabby both installed)
+                if (window.ethereum?.providers?.length > 1) {
+                    // Look for Rabby specifically in providers array
+                    const rabbyProvider = window.ethereum.providers.find(p => p.isRabby);
+                    if (rabbyProvider) {
+                        ethereum = rabbyProvider;
+                    }
+                }
                 
                 if (!ethereum) {
                     alert('Please install MetaMask, Rabby, or another Web3 wallet');
                     return;
+                }
+                
+                // Switch to Base network
+                try {
+                    await ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x2105' }], // Base mainnet chain ID
+                    });
+                } catch (switchError) {
+                    // If Base network not added, add it
+                    if (switchError.code === 4902) {
+                        await ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0x2105',
+                                chainName: 'Base Mainnet',
+                                nativeCurrency: {
+                                    name: 'ETH',
+                                    symbol: 'ETH',
+                                    decimals: 18
+                                },
+                                rpcUrls: ['https://mainnet.base.org'],
+                                blockExplorerUrls: ['https://basescan.org']
+                            }]
+                        });
+                    } else {
+                        throw switchError;
+                    }
                 }
                 
                 provider = new ethers.providers.Web3Provider(ethereum, 'any');
@@ -613,8 +681,14 @@
                 contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
                 usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
                 
-                // Check if already paid
-                const hasAccess = await contract.checkAccess(skillId, userAddress);
+                // Check if already paid (wrap in try-catch in case skill isn't registered)
+                let hasAccess = false;
+                try {
+                    hasAccess = await contract.checkAccess(skillId, userAddress);
+                } catch (e) {
+                    console.log('checkAccess failed, assuming not paid:', e.message);
+                    hasAccess = false;
+                }
                 
                 if (hasAccess) {
                     showAlreadyPaid();
@@ -649,22 +723,36 @@
                 button.disabled = true;
                 button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Processing...';
                 
+                console.log('Checking allowance for:', userAddress, 'to spend on:', CONTRACT_ADDRESS);
+                
                 // Check USDC allowance
-                const allowance = await usdcContract.allowance(userAddress, CONTRACT_ADDRESS);
+                let allowance;
+                try {
+                    allowance = await usdcContract.allowance(userAddress, CONTRACT_ADDRESS);
+                    console.log('Current allowance:', allowance.toString());
+                } catch (e) {
+                    console.error('Allowance check failed:', e);
+                    // If we can't check allowance, just try to approve
+                    allowance = ethers.BigNumber.from(0);
+                }
                 
                 if (allowance.lt(skillInfo.price)) {
                     // Need to approve USDC
                     button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Approving USDC...';
                     
+                    console.log('Approving USDC...');
                     const approveTx = await usdcContract.approve(CONTRACT_ADDRESS, ethers.constants.MaxUint256);
                     await approveTx.wait();
+                    console.log('USDC approved');
                 }
                 
                 // Pay for skill
                 button.innerHTML = '<span class="inline-block w-5 h-5 border-2 border-slate-700 border-t-white rounded-full animate-spin mr-2"></span>Confirming payment...';
                 
+                console.log('Paying for skill:', skillId);
                 const tx = await contract.payForSkill(skillId);
                 const receipt = await tx.wait();
+                console.log('Payment confirmed:', receipt.transactionHash);
                 
                 // Show success
                 document.getElementById('payment-processing').classList.add('hidden');
@@ -678,16 +766,84 @@
                 
             } catch (error) {
                 console.error('Payment error:', error);
-                alert('Payment failed: ' + (error.message || 'Unknown error'));
                 
+                // Extract error message
+                let errorMessage = error.message || 'Unknown error';
+                let userFriendlyMessage = 'Payment failed';
+                let errorDetails = '';
+                
+                // Check for specific error types
+                if (errorMessage.includes('transfer amount exceeds balance') || 
+                    errorMessage.includes('exceeds balance') ||
+                    (error.reason && error.reason.includes('exceeds balance'))) {
+                    userFriendlyMessage = 'Insufficient USDC Balance';
+                    errorDetails = `You don't have enough USDC in your wallet to complete this payment.<br><br>
+                        <strong>Skill Price:</strong> ${skillInfo ? ethers.utils.formatUnits(skillInfo.price, 6) : '-'} USDC<br>
+                        <strong>Your Wallet:</strong> ${userAddress.slice(0, 6)}...${userAddress.slice(-4)}<br><br>
+                        <strong>To fix this:</strong><br>
+                        1. Get USDC on Base Mainnet<br>
+                        2. Bridge from Ethereum via <a href="https://bridge.base.org" target="_blank" class="text-[#4ade80] underline">bridge.base.org</a><br>
+                        3. Or swap ETH → USDC on <a href="https://app.uniswap.org" target="_blank" class="text-[#4ade80] underline">Uniswap</a><br>
+                        4. Make sure you're on Base network, not Ethereum`;
+                } else if (errorMessage.includes('insufficient funds') || 
+                           errorMessage.includes('not enough ETH') ||
+                           errorMessage.includes('gas required exceeds allowance')) {
+                    userFriendlyMessage = 'Insufficient ETH for Gas';
+                    errorDetails = `You don't have enough ETH on Base to cover the transaction fee.<br><br>
+                        <strong>Need:</strong> A small amount of ETH for gas (~$0.01-0.05)<br>
+                        <strong>Network:</strong> Base Mainnet<br><br>
+                        <strong>To fix this:</strong><br>
+                        1. Bridge ETH to Base via <a href="https://bridge.base.org" target="_blank" class="text-[#4ade80] underline">bridge.base.org</a><br>
+                        2. Or buy ETH directly on Base through an exchange`;
+                } else if (errorMessage.includes('user rejected') || 
+                           errorMessage.includes('User denied') ||
+                           errorMessage.includes('Action rejected')) {
+                    userFriendlyMessage = 'Transaction Cancelled';
+                    errorDetails = 'You cancelled the transaction in your wallet.<br><br>Click "Pay" again when you\'re ready to complete the payment.';
+                } else if (errorMessage.includes('network') || 
+                           errorMessage.includes('chain') ||
+                           errorMessage.includes('chainId')) {
+                    userFriendlyMessage = 'Wrong Network';
+                    errorDetails = 'Please make sure your wallet is connected to <strong>Base Mainnet</strong>.<br><br>The payment must be made on Base network, not Ethereum Mainnet.';
+                } else {
+                    // Generic error
+                    userFriendlyMessage = 'Payment Failed';
+                    errorDetails = `Something went wrong: ${errorMessage.substring(0, 200)}...<br><br>
+                        Please try again or contact support at <a href="mailto:ShellFoundry@gmail.com" class="text-[#4ade80] underline">ShellFoundry@gmail.com</a>`;
+                }
+                
+                // Show error in the UI
+                const errorDiv = document.createElement('div');
+                errorDiv.className = 'mt-4 p-4 bg-red-500/10 border border-red-500/20 rounded-xl text-left';
+                errorDiv.innerHTML = `
+                    <div class="flex items-start space-x-3">
+                        <svg class="w-6 h-6 text-red-400 flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                        </svg>
+                        <div>
+                            <h4 class="font-semibold text-red-400 mb-1">${userFriendlyMessage}</h4>
+                            <p class="text-sm text-slate-400">${errorDetails}</p>
+                        </div>
+                    </div>
+                `;
+                
+                // Insert error message after button
                 const button = document.getElementById('pay-button');
+                button.parentNode.insertBefore(errorDiv, button.nextSibling);
+                
+                // Reset button
                 button.disabled = false;
                 button.innerHTML = `
                     <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                     </svg>
-                    Pay <span id="button-price">${skillInfo ? ethers.utils.formatUnits(skillInfo.price, 6) : '-'}</span> USDC
+                    Try Again
                 `;
+                
+                // Remove error after 10 seconds
+                setTimeout(() => {
+                    errorDiv.remove();
+                }, 15000);
             }
         }
         

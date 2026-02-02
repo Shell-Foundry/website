@@ -3,11 +3,11 @@
 
 import { ethers } from 'ethers';
 
-// ClawPay contract on Base Sepolia (testnet) - will update to mainnet after deployment
-const CONTRACT_ADDRESS = '0x72CaF410E276c50e2f5a5C76f9348242c66bE86c';
+// ClawPay contract on Base Mainnet
+const CONTRACT_ADDRESS = '0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d';
 
-// Base Sepolia RPC (free from Alchemy)
-const RPC_URL = 'https://base-sepolia.g.alchemy.com/v2/demo';
+// Base Mainnet RPC
+const RPC_URL = 'https://mainnet.base.org';
 
 // Contract ABI (minimal for checkAccess function)
 const CONTRACT_ABI = [

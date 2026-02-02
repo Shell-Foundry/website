@@ -1,5 +1,5 @@
 // API endpoint to handle skill registration submissions
-// Stores submission and notifies admin
+// Stores submission and notifies admin via Telegram
 
 export default async function handler(req, res) {
   // Enable CORS
@@ -53,18 +53,11 @@ export default async function handler(req, res) {
       status: 'pending'
     };
 
-    // Log submission (in production, store in database)
+    // Log submission
     console.log('New skill registration:', enrichedSubmission);
 
-    // TODO: Send notification to admin
-    // This could be:
-    // - Email via SendGrid/AWS SES
-    // - Telegram bot message
-    // - Slack webhook
-    // - Store in database for admin dashboard
-    
-    // For now, we'll just return success
-    // The admin (you) can check logs or we can add a dashboard later
+    // Send Telegram notification
+    await sendTelegramNotification(enrichedSubmission);
 
     return res.status(200).json({
       success: true,
@@ -83,5 +76,59 @@ export default async function handler(req, res) {
       error: 'Internal server error',
       message: 'Failed to process registration'
     });
+  }
+}
+
+async function sendTelegramNotification(submission) {
+  // Get environment variables
+  const TELEGRAM_BOT_TOKEN = process.env.TELEGRAM_BOT_TOKEN;
+  const TELEGRAM_CHAT_ID = process.env.TELEGRAM_CHAT_ID || '7764891688';
+
+  if (!TELEGRAM_BOT_TOKEN) {
+    console.log('Telegram bot token not configured, skipping notification');
+    return;
+  }
+
+  const message = `
+🐚 *New Skill Registration!*
+
+*Developer:* ${submission.developerName}
+*Skill ID:* \`${submission.skillId}\`
+*Skill Name:* ${submission.skillName}
+*Price:* $${submission.price} USDC
+*Wallet:* \`${submission.walletAddress}\`
+*Contact:* ${submission.contact}
+
+*Description:*
+${submission.description.substring(0, 200)}${submission.description.length > 200 ? '...' : ''}
+
+${submission.repoUrl ? `*Repo:* ${submission.repoUrl}` : ''}
+
+Registration ID: \`${submission.id}\`
+Submitted: ${new Date(submission.submittedAt).toLocaleString()}
+
+[Register on Remix](https://remix.ethereum.org)
+`;
+
+  try {
+    const response = await fetch(`https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        chat_id: TELEGRAM_CHAT_ID,
+        text: message,
+        parse_mode: 'Markdown',
+        disable_web_page_preview: true
+      })
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error('Telegram notification failed:', errorText);
+    } else {
+      console.log('Telegram notification sent successfully');
+    }
+  } catch (error) {
+    console.error('Failed to send Telegram notification:', error);
   }
 }
