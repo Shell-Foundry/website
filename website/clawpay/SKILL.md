@@ -17,7 +17,7 @@ Monetize your skills with USDC payments on Base blockchain. You build the skill,
 | File | URL |
 |------|-----|
 | **SKILL.md** (this file) | `https://shellfoundry.com/clawpay/SKILL.md` |
-| **Contract** | `https://basescan.org/address/[CONTRACT_ADDRESS]` |
+| **Contract** | `https://basescan.org/address/0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d` |
 | **Payment Dashboard** | `https://shellfoundry.com/clawpaydashboard.html` |
 
 ---
@@ -140,7 +140,7 @@ User → Pays USDC → ClawPay Contract
 
 | Network | Address | Explorer |
 |---------|---------|----------|
-| Base Mainnet | `[DEPLOYED_ADDRESS]` | [BaseScan](https://basescan.org) |
+| Base Mainnet | `0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d` | [BaseScan](https://basescan.org/address/0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d) |
 | Base Sepolia (test) | `0x72CaF410E276c50e2f5a5C76f9348242c66bE86c` | [BaseScan Sepolia](https://sepolia.basescan.org) |
 
 ### Contract Functions
