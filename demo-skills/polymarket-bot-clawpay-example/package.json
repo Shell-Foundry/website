@@ -1,0 +1,24 @@
+{
+  "name": "polymarket-bot-clawpay-example",
+  "version": "1.0.0",
+  "description": "Premium Polymarket analysis bot with ClawPay integration. Demo skill for developers.",
+  "main": "skill.js",
+  "keywords": [
+    "clawpay",
+    "polymarket",
+    "trading",
+    "premium",
+    "demo",
+    "skill"
+  ],
+  "author": "ShellFoundry",
+  "license": "MIT",
+  "homepage": "https://shellfoundry.com/clawpay",
+  "clawpay": {
+    "enabled": true,
+    "skillId": "polymarket-bot-clawpay-example",
+    "price": "1.00",
+    "currency": "USDC",
+    "contractAddress": "0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d"
+  }
+}
