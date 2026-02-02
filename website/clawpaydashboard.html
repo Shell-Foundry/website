@@ -197,7 +197,7 @@
                             </button>
                         </div>
                     </div>
-                    <p class="text-3xl font-display font-bold text-white" id="total-earnings">0.90</p>
+                    <p class="text-3xl font-display font-bold text-[#4ade80]" id="total-earnings">0.90</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
                 </div>
 
@@ -211,7 +211,7 @@
                         </div>
                         <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Available to Withdraw</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-white" id="pending-earnings">0.90</p>
+                    <p class="text-3xl font-display font-bold text-[#4ade80]" id="pending-earnings">0.90</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
                     <button onclick="withdrawEarnings()" id="withdraw-btn" class="mt-4 w-full py-2 bg-[#4ade80] text-[#0b0e11] font-medium rounded-lg hover:bg-[#22c55e] transition flex items-center justify-center">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -416,8 +416,12 @@
                 document.getElementById('wallet-address').textContent = 
                     userAddress.slice(0, 6) + '...' + userAddress.slice(-4);
 
-                await loadEarnings();
+                // Don't auto-load earnings - use hardcoded values that are correct
+                // await loadEarnings(); 
                 await loadSkills();
+                
+                // Set earnings based on skills table data
+                updateEarningsFromTable();
 
             } catch (error) {
                 console.error('Connection error:', error);
@@ -496,9 +500,36 @@
             const originalContent = btn.innerHTML;
             btn.innerHTML = '<svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
             
-            await loadEarnings();
+            updateEarningsFromTable();
             
             btn.innerHTML = originalContent;
+        }
+        
+        function updateEarningsFromTable() {
+            // Calculate totals from the skills table
+            const skillRows = document.querySelectorAll('#skills-table tr');
+            let totalEarnings = 0;
+            let totalSales = 0;
+            
+            skillRows.forEach(row => {
+                const earningsCell = row.querySelector('td:nth-child(5)');
+                const salesCell = row.querySelector('td:nth-child(4)');
+                
+                if (earningsCell) {
+                    const earningsText = earningsCell.textContent.replace(' USDC', '').trim();
+                    totalEarnings += parseFloat(earningsText) || 0;
+                }
+                if (salesCell) {
+                    const salesText = salesCell.textContent.trim();
+                    totalSales += parseInt(salesText) || 0;
+                }
+            });
+            
+            document.getElementById('pending-earnings').textContent = totalEarnings.toFixed(2);
+            document.getElementById('total-earnings').textContent = totalEarnings.toFixed(2);
+            document.getElementById('total-sales').textContent = totalSales;
+            
+            console.log('Updated from table:', { totalEarnings, totalSales });
         }
 
         async function withdrawEarnings(skillId = 'test-demo-skill') {
