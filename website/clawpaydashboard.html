@@ -343,10 +343,12 @@
         let provider, signer, contract, userAddress;
 
         const CONTRACT_ABI = [
-            "function getPendingEarnings(address developer) external view returns (uint256)",
-            "function withdrawEarnings() external",
-            "function skills(string calldata skillId) external view returns (address developer, uint256 price, bool active, string memory name)",
-            "event PaymentProcessed(string skillId, address user, uint256 platformAmount, uint256 devAmount)"
+            "function checkAccess(string skillId, address user) view returns (bool)",
+            "function developerEarnings(string skillId, address developer) view returns (uint256)",
+            "function payForSkill(string skillId) external",
+            "function skills(string skillId) view returns (address developer, uint256 price, bool active, string name)",
+            "function withdrawEarnings(string skillId) external",
+            "event PaymentReceived(string skillId, address user, uint256 amount)"
         ];
 
         async function connectWallet() {
@@ -357,11 +359,38 @@
                 }
                 
                 // Check for any injected wallet (MetaMask, Rabby, etc.)
-                const ethereum = window.ethereum || window.rabby;
+                let ethereum = window.rabby;
+                if (!ethereum && window.rabby?.ethereum) {
+                    ethereum = window.rabby.ethereum;
+                }
+                if (!ethereum) {
+                    ethereum = window.ethereum;
+                }
                 
                 if (!ethereum) {
                     alert('Please install MetaMask, Rabby, or another Web3 wallet');
                     return;
+                }
+                
+                // Switch to Base network
+                try {
+                    await ethereum.request({
+                        method: 'wallet_switchEthereumChain',
+                        params: [{ chainId: '0x2105' }], // Base mainnet
+                    });
+                } catch (switchError) {
+                    if (switchError.code === 4902) {
+                        await ethereum.request({
+                            method: 'wallet_addEthereumChain',
+                            params: [{
+                                chainId: '0x2105',
+                                chainName: 'Base Mainnet',
+                                nativeCurrency: { name: 'ETH', symbol: 'ETH', decimals: 18 },
+                                rpcUrls: ['https://mainnet.base.org'],
+                                blockExplorerUrls: ['https://basescan.org']
+                            }]
+                        });
+                    }
                 }
 
                 provider = new ethers.providers.Web3Provider(ethereum, 'any');
@@ -400,31 +429,51 @@
 
         async function loadEarnings() {
             try {
-                const earnings = await contract.getPendingEarnings(userAddress);
-                const earningsFormatted = ethers.utils.formatUnits(earnings, 6);
+                // Check earnings for each skill
+                const skillIds = ['test-demo-skill', 'polymarket-bot-clawpay-example'];
+                let totalEarnings = ethers.BigNumber.from(0);
+                
+                for (const skillId of skillIds) {
+                    try {
+                        const earnings = await contract.developerEarnings(skillId, userAddress);
+                        totalEarnings = totalEarnings.add(earnings);
+                        console.log(`Earnings for ${skillId}:`, ethers.utils.formatUnits(earnings, 6), 'USDC');
+                    } catch (e) {
+                        console.log(`Could not load earnings for ${skillId}:`, e.message);
+                    }
+                }
+                
+                const earningsFormatted = ethers.utils.formatUnits(totalEarnings, 6);
                 
                 document.getElementById('pending-earnings').textContent = 
                     parseFloat(earningsFormatted).toFixed(2);
                 document.getElementById('total-earnings').textContent = 
                     parseFloat(earningsFormatted).toFixed(2);
+                    
+                console.log('Total earnings:', earningsFormatted, 'USDC');
             } catch (error) {
                 console.error('Error loading earnings:', error);
             }
         }
 
-        async function withdrawEarnings() {
+        async function withdrawEarnings(skillId = 'test-demo-skill') {
             const btn = document.getElementById('withdraw-btn');
             btn.disabled = true;
             btn.innerHTML = '<svg class="animate-spin w-4 h-4 mr-2" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Processing...';
             
             try {
-                const tx = await contract.withdrawEarnings();
+                console.log('Withdrawing earnings for skill:', skillId);
+                const tx = await contract.withdrawEarnings(skillId);
                 await tx.wait();
-                alert('Withdrawal successful!');
+                alert('Withdrawal successful! Check your wallet for USDC.');
                 await loadEarnings();
             } catch (error) {
                 console.error('Withdrawal error:', error);
-                alert('Withdrawal failed: ' + error.message);
+                let errorMsg = error.message;
+                if (error.message.includes('No earnings')) {
+                    errorMsg = 'No earnings to withdraw for this skill.';
+                }
+                alert('Withdrawal failed: ' + errorMsg);
             } finally {
                 btn.disabled = false;
                 btn.innerHTML = '<svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg> Withdraw';
@@ -432,13 +481,34 @@
         }
 
         async function loadSkills() {
-            document.getElementById('skills-table').innerHTML = `
+            // For now, show the registered skills
+            // In production, this would query all skills by developer
+            const skills = [
+                {
+                    id: 'test-demo-skill',
+                    name: 'Test Demo Skill',
+                    price: '1.00',
+                    sales: '1',
+                    earnings: '0.90'
+                },
+                {
+                    id: 'polymarket-bot-clawpay-example',
+                    name: 'Polymarket Bot - ClawPay Example',
+                    price: '1.00',
+                    sales: '0',
+                    earnings: '0.00'
+                }
+            ];
+            
+            let html = '';
+            skills.forEach(skill => {
+                html += `
                 <tr class="border-b border-slate-800 hover:bg-[#0b0e11]">
-                    <td class="py-4 px-6 font-mono text-sm text-slate-400">test-weather-pro</td>
-                    <td class="py-4 px-6 text-white font-medium">Test Weather Pro</td>
-                    <td class="py-4 px-6 text-right text-white">5.00 USDC</td>
-                    <td class="py-4 px-6 text-right text-white">1</td>
-                    <td class="py-4 px-6 text-right text-[#4ade80] font-medium">4.50 USDC</td>
+                    <td class="py-4 px-6 font-mono text-sm text-slate-400">${skill.id}</td>
+                    <td class="py-4 px-6 text-white font-medium">${skill.name}</td>
+                    <td class="py-4 px-6 text-right text-white">${skill.price} USDC</td>
+                    <td class="py-4 px-6 text-right text-white">${skill.sales}</td>
+                    <td class="py-4 px-6 text-right text-[#4ade80] font-medium">${skill.earnings} USDC</td>
                     <td class="py-4 px-6 text-center">
                         <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-[#4ade80]/10 text-[#4ade80] border border-[#4ade80]/20">
                             <span class="w-1.5 h-1.5 bg-[#4ade80] rounded-full mr-1.5"></span>
@@ -446,7 +516,10 @@
                         </span>
                     </td>
                 </tr>
-            `;
+                `;
+            });
+            
+            document.getElementById('skills-table').innerHTML = html;
             document.getElementById('total-sales').textContent = '1';
         }
 
