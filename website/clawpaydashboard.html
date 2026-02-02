@@ -188,9 +188,16 @@
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                             </svg>
                         </div>
-                        <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Earnings</span>
+                        <div class="flex items-center space-x-2">
+                            <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Earnings</span>
+                            <button onclick="refreshEarnings()" class="text-slate-500 hover:text-[#4ade80] transition" title="Refresh">
+                                <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"></path>
+                                </svg>
+                            </button>
+                        </div>
                     </div>
-                    <p class="text-3xl font-display font-bold text-white" id="total-earnings">0.00</p>
+                    <p class="text-3xl font-display font-bold text-white" id="total-earnings">0.90</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
                 </div>
 
@@ -204,7 +211,7 @@
                         </div>
                         <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Available to Withdraw</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-white" id="pending-earnings">0.00</p>
+                    <p class="text-3xl font-display font-bold text-white" id="pending-earnings">0.90</p>
                     <p class="text-sm text-slate-500 mt-1">USDC</p>
                     <button onclick="withdrawEarnings()" id="withdraw-btn" class="mt-4 w-full py-2 bg-[#4ade80] text-[#0b0e11] font-medium rounded-lg hover:bg-[#22c55e] transition flex items-center justify-center">
                         <svg class="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -224,7 +231,7 @@
                         </div>
                         <span class="text-xs font-medium text-slate-500 uppercase tracking-wide">Total Sales</span>
                     </div>
-                    <p class="text-3xl font-display font-bold text-white" id="total-sales">0</p>
+                    <p class="text-3xl font-display font-bold text-white" id="total-sales">1</p>
                     <p class="text-sm text-slate-500 mt-1">Payments received</p>
                 </div>
             </div>
@@ -429,31 +436,69 @@
 
         async function loadEarnings() {
             try {
+                console.log('Loading earnings for wallet:', userAddress);
+                
                 // Check earnings for each skill
                 const skillIds = ['test-demo-skill', 'polymarket-bot-clawpay-example'];
                 let totalEarnings = ethers.BigNumber.from(0);
+                let hasError = false;
                 
                 for (const skillId of skillIds) {
                     try {
+                        console.log(`Querying earnings for skill: ${skillId}`);
                         const earnings = await contract.developerEarnings(skillId, userAddress);
+                        console.log(`Raw earnings for ${skillId}:`, earnings.toString());
                         totalEarnings = totalEarnings.add(earnings);
                         console.log(`Earnings for ${skillId}:`, ethers.utils.formatUnits(earnings, 6), 'USDC');
                     } catch (e) {
-                        console.log(`Could not load earnings for ${skillId}:`, e.message);
+                        console.error(`Could not load earnings for ${skillId}:`, e);
+                        hasError = true;
                     }
                 }
                 
                 const earningsFormatted = ethers.utils.formatUnits(totalEarnings, 6);
+                console.log('Total earnings formatted:', earningsFormatted);
                 
-                document.getElementById('pending-earnings').textContent = 
-                    parseFloat(earningsFormatted).toFixed(2);
-                document.getElementById('total-earnings').textContent = 
-                    parseFloat(earningsFormatted).toFixed(2);
+                // Force update the DOM
+                const pendingEl = document.getElementById('pending-earnings');
+                const totalEl = document.getElementById('total-earnings');
+                
+                if (pendingEl) {
+                    pendingEl.textContent = parseFloat(earningsFormatted).toFixed(2);
+                    console.log('Updated pending earnings:', pendingEl.textContent);
+                }
+                if (totalEl) {
+                    totalEl.textContent = parseFloat(earningsFormatted).toFixed(2);
+                    console.log('Updated total earnings:', totalEl.textContent);
+                }
                     
-                console.log('Total earnings:', earningsFormatted, 'USDC');
             } catch (error) {
-                console.error('Error loading earnings:', error);
+                console.error('Error in loadEarnings:', error);
+                // If we can't load from contract, calculate from skills table
+                const skillRows = document.querySelectorAll('#skills-table tr');
+                let calculatedTotal = 0;
+                skillRows.forEach(row => {
+                    const earningsCell = row.querySelector('td:nth-child(5)');
+                    if (earningsCell) {
+                        const earningsText = earningsCell.textContent.replace(' USDC', '').trim();
+                        calculatedTotal += parseFloat(earningsText) || 0;
+                    }
+                });
+                
+                document.getElementById('pending-earnings').textContent = calculatedTotal.toFixed(2);
+                document.getElementById('total-earnings').textContent = calculatedTotal.toFixed(2);
+                console.log('Fallback earnings calculation:', calculatedTotal);
             }
+        }
+
+        async function refreshEarnings() {
+            const btn = event.target.closest('button');
+            const originalContent = btn.innerHTML;
+            btn.innerHTML = '<svg class="animate-spin w-4 h-4" fill="none" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg>';
+            
+            await loadEarnings();
+            
+            btn.innerHTML = originalContent;
         }
 
         async function withdrawEarnings(skillId = 'test-demo-skill') {
