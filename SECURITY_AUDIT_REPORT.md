@@ -1,0 +1,205 @@
+# SECURITY AUDIT REPORT - ShellFoundry/ClawPay
+
+**Date:** February 3, 2026  
+**Auditor:** ShellFoundry AI  
+**Status:** CRITICAL ISSUES FOUND
+
+---
+
+## 🚨 CRITICAL SECURITY ISSUES
+
+### 1. PRIVATE KEY EXPOSED IN GITHUB (CRITICAL)
+**Location:** `contracts/.env`  
+**Exposure:** Private key for contract deployer wallet
+
+**Details:**
+- File: `contracts/.env` contains: `PRIVATE_KEY=a30524ec3638eefda991a82f309aab768f426cf89355e65eb5aa595d7b099cf0`
+- This private key is TRACKED in Git (committed to history)
+- **Risk:** Anyone with this key has FULL CONTROL of the contract deployer wallet
+- **Impact:** Can withdraw all funds, change contract settings, transfer ownership
+
+**Immediate Action Required:**
+1. Remove from Git history (git filter-repo or BFG Repo-Cleaner)
+2. Rotate the private key (create new wallet, transfer ownership)
+3. Add to .gitignore
+
+---
+
+### 2. API KEYS EXPOSED IN GITHUB (HIGH)
+**Location:** `contracts/.env` and `skill-clawpay/.env`
+
+**Details:**
+- Alchemy API Key: `XLppOWXLsjzTX30iEWoBS` (in both files)
+- Basescan API Key placeholder (not set yet, but structure exposed)
+- Both files TRACKED in Git
+
+**Risk:** API key abuse, rate limiting, unauthorized access to blockchain data
+
+---
+
+### 3. MISSING .GITIGNORE FILES (MEDIUM)
+**Locations:** 
+- Root directory: No `.gitignore`
+- `contracts/`: No `.gitignore`
+- `skill-clawpay/`: No `.gitignore`
+
+**Impact:** .env files with secrets can be accidentally committed
+
+---
+
+## ✅ SECURE (No Issues Found)
+
+### Website API (`website/api/`)
+- ✅ Telegram bot token uses `process.env` (not hardcoded)
+- ✅ No secrets in source code
+- ✅ `.gitignore` properly excludes `.env*.local`
+
+### GitHub Tokens
+- ✅ No GitHub tokens (`ghp_*`) found in codebase
+- ✅ No Twitter auth tokens found in files
+- ✅ No Vercel tokens hardcoded
+
+### Vercel Environment
+- ✅ `.env.local` is in `.gitignore`
+- ✅ No secrets exposed in Vercel deployment
+
+---
+
+## 🛠️ IMMEDIATE REMEDIATION STEPS
+
+### Step 1: Create .gitignore Files
+
+**Root .gitignore:**
+```gitignore
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# Dependencies
+node_modules/
+package-lock.json
+
+# Hardhat/Contract artifacts
+cache/
+artifacts/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+```
+
+**contracts/.gitignore:**
+```gitignore
+.env
+node_modules/
+cache/
+artifacts/
+```
+
+**skill-clawpay/.gitignore:**
+```gitignore
+.env
+node_modules/
+```
+
+### Step 2: Remove Exposed Files from Git (DO NOT DELETE FILES, JUST STOP TRACKING)
+
+```bash
+# Stop tracking .env files (keeps local files, removes from git)
+git rm --cached contracts/.env
+git rm --cached skill-clawpay/.env
+
+# Commit the removal
+git add .gitignore
+git commit -m "Remove .env files with secrets from git, add .gitignore"
+git push
+```
+
+### Step 3: Rotate Compromised Credentials (CRITICAL)
+
+**PRIVATE KEY - URGENT:**
+1. Create NEW wallet (never use the exposed one again)
+2. Transfer contract ownership to new wallet
+3. Transfer any funds from old wallet to new wallet
+4. Update all deployment scripts with new private key
+5. Store new key in `.env` (which is now gitignored)
+
+**API KEYS:**
+1. Regenerate Alchemy API key at alchemy.com
+2. Update `.env` files with new key
+3. Old key may be disabled if abused
+
+### Step 4: Clean Git History (Optional but Recommended)
+
+If you want to completely remove secrets from git history:
+
+```bash
+# Install BFG Repo-Cleaner
+# Download from: https://rtyley.github.io/bfg-repo-cleaner/
+
+# Run BFG to remove secrets
+bfg --replace-text secrets.txt
+git reflog expire --expire=now --all
+git gc --prune=now --aggressive
+git push --force
+```
+
+**WARNING:** Force push rewrites history - coordinate with team!
+
+---
+
+## 📋 SECRETS MANAGEMENT BEST PRACTICES
+
+### For Local Development:
+1. Use `.env` files (gitignored)
+2. Never commit `.env` files
+3. Use `.env.example` as template (with placeholder values)
+
+### For Vercel Deployment:
+1. Use Vercel Dashboard → Project Settings → Environment Variables
+2. Add: `TELEGRAM_BOT_TOKEN`, `TELEGRAM_CHAT_ID`
+3. Never put secrets in code
+
+### For GitHub:
+1. Use GitHub Secrets for Actions/workflows
+2. Use Repository Secrets (Settings → Secrets → Actions)
+
+---
+
+## 🔍 VERIFICATION CHECKLIST
+
+- [ ] .gitignore created at root
+- [ ] .gitignore created in contracts/
+- [ ] .gitignore created in skill-clawpay/
+- [ ] contracts/.env removed from git tracking
+- [ ] skill-clawpay/.env removed from git tracking
+- [ ] New private key generated
+- [ ] Contract ownership transferred to new wallet
+- [ ] Alchemy API key rotated
+- [ ] New secrets stored securely (not in git)
+- [ ] Team notified of old key compromise
+
+---
+
+## ⚠️ RISK ASSESSMENT
+
+**Current Risk Level: CRITICAL**
+
+- Private key exposed publicly on GitHub
+- Anyone can access the deployer wallet
+- Contract ownership could be stolen
+- Funds at risk
+
+**Timeline to Fix: IMMEDIATE (within hours)**
+
+---
+
+**Report Generated By:** ShellFoundry Security Audit  
+**Next Audit Recommended:** After remediation
