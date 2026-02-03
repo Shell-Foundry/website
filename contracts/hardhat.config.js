@@ -15,15 +15,15 @@ module.exports = {
     },
   },
   networks: {
-    // Base Sepolia Testnet
+    // Base Sepolia Testnet (public endpoint - no API key needed)
     baseSepolia: {
-      url: `https://base-sepolia.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      url: 'https://sepolia.base.org',
       accounts: [PRIVATE_KEY],
       chainId: 84532,
     },
-    // Base Mainnet
+    // Base Mainnet (public endpoint - no API key needed)
     base: {
-      url: `https://base-mainnet.g.alchemy.com/v2/${ALCHEMY_API_KEY}`,
+      url: 'https://mainnet.base.org',
       accounts: [PRIVATE_KEY],
       chainId: 8453,
     },

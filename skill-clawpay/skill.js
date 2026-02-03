@@ -20,19 +20,19 @@ const CONTRACT_ABI = [
   "event PaymentProcessed(string skillId, address user, uint256 platformAmount, uint256 devAmount)"
 ];
 
-// Configuration
+// Configuration (using public endpoints - no API key needed)
 const CONFIG = {
   // Base Mainnet
   mainnet: {
     contractAddress: process.env.CLAWPAY_CONTRACT_MAINNET || '',
     usdcAddress: '0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913',
-    rpcUrl: 'https://base-mainnet.g.alchemy.com/v2/' + process.env.ALCHEMY_API_KEY
+    rpcUrl: 'https://mainnet.base.org'
   },
   // Base Sepolia Testnet
   testnet: {
     contractAddress: process.env.CLAWPAY_CONTRACT_TESTNET || '',
     usdcAddress: '0x036CbD53842c5426634e7929541eC2318f3dCF7e',
-    rpcUrl: 'https://base-sepolia.g.alchemy.com/v2/' + process.env.ALCHEMY_API_KEY
+    rpcUrl: 'https://sepolia.base.org'
   }
 };
 
