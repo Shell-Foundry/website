@@ -405,8 +405,11 @@
                 signer = provider.getSigner();
                 userAddress = await signer.getAddress();
 
+                // Use getAddress to ensure proper checksum
+                const contractAddress = ethers.utils.getAddress(CONFIG[NETWORK].contractAddress);
+                
                 contract = new ethers.Contract(
-                    CONFIG[NETWORK].contractAddress,
+                    contractAddress,
                     CONTRACT_ABI,
                     signer
                 );

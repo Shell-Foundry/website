@@ -569,7 +569,8 @@
             try {
                 console.log('Loading skill info for:', skillId);
                 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-                const contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, provider);
+                const contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                const contract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider);
                 
                 skillInfo = await contract.skills(skillId);
                 console.log('Skill info loaded:', skillInfo);
@@ -678,7 +679,8 @@
                 signer = provider.getSigner();
                 userAddress = await signer.getAddress();
                 
-                contract = new ethers.Contract(CONTRACT_ADDRESS, CONTRACT_ABI, signer);
+                const contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                contract = new ethers.Contract(contractAddress, CONTRACT_ABI, signer);
                 usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
                 
                 // Check if already paid (wrap in try-catch in case skill isn't registered)
