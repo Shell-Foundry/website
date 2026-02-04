@@ -50,7 +50,7 @@ async function analyze(userAddress, marketId) {
 
 ## Technical Details
 
-**Contract:** 0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d  
+**Contract:** 0x6c302FB0eabb0875088b07D80807a91BDa3c21AB  
 **Network:** Base Mainnet  
 **Payment Token:** USDC  
 **Fee Split:** 90% Developer / 10% Platform  

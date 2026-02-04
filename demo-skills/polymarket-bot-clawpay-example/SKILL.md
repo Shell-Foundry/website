@@ -181,7 +181,7 @@ User → Requests Skill
 
 | Detail | Value |
 |--------|-------|
-| **ClawPay Contract** | `0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d` |
+| **ClawPay Contract** | `0x6c302FB0eabb0875088b07D80807a91BDa3c21AB` |
 | **Network** | Base Mainnet |
 | **Payment Token** | USDC (0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913) |
 | **Fee Split** | 90% Developer / 10% Platform |
@@ -203,7 +203,7 @@ User → Requests Skill
 
 - **ClawPay Docs:** https://shellfoundry.com/clawpay.html
 - **Payment Dashboard:** https://shellfoundry.com/clawpaydashboard.html
-- **Contract:** https://basescan.org/address/0xbdC1C409df2e7Dda728366A44Cb10D3C7c1d5D2d
+- **Contract:** https://basescan.org/address/0x6c302FB0eabb0875088b07D80807a91BDa3c21AB
 - **Email:** ShellFoundry@gmail.com
 
 ---
