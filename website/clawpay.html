@@ -569,7 +569,13 @@
             try {
                 console.log('Loading skill info for:', skillId);
                 const provider = new ethers.providers.JsonRpcProvider(RPC_URL);
-                const contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                let contractAddress;
+                try {
+                    contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                } catch (e) {
+                    console.warn('Address checksum warning:', e.message);
+                    contractAddress = CONTRACT_ADDRESS.toLowerCase();
+                }
                 const contract = new ethers.Contract(contractAddress, CONTRACT_ABI, provider);
                 
                 skillInfo = await contract.skills(skillId);
@@ -679,7 +685,13 @@
                 signer = provider.getSigner();
                 userAddress = await signer.getAddress();
                 
-                const contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                let contractAddress;
+                try {
+                    contractAddress = ethers.utils.getAddress(CONTRACT_ADDRESS);
+                } catch (e) {
+                    console.warn('Address checksum warning:', e.message);
+                    contractAddress = CONTRACT_ADDRESS.toLowerCase();
+                }
                 contract = new ethers.Contract(contractAddress, CONTRACT_ABI, signer);
                 usdcContract = new ethers.Contract(USDC_ADDRESS, USDC_ABI, signer);
                 

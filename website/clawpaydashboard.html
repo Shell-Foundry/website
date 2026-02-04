@@ -406,7 +406,14 @@
                 userAddress = await signer.getAddress();
 
                 // Use getAddress to ensure proper checksum
-                const contractAddress = ethers.utils.getAddress(CONFIG[NETWORK].contractAddress);
+                let contractAddress;
+                try {
+                    contractAddress = ethers.utils.getAddress(CONFIG[NETWORK].contractAddress);
+                } catch (e) {
+                    // If getAddress fails, use the address as-is
+                    console.warn('Address checksum warning:', e.message);
+                    contractAddress = CONFIG[NETWORK].contractAddress.toLowerCase();
+                }
                 
                 contract = new ethers.Contract(
                     contractAddress,
