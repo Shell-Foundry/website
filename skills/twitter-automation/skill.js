@@ -163,8 +163,8 @@ async function login(page) {
     throw new Error('TWITTER_USERNAME and TWITTER_PASSWORD required in .env');
   }
 
-  console.log('🔐 Navigating to Twitter login...');
-  await page.goto('https://x.com/login', { waitUntil: 'networkidle', timeout: 30000 });
+  console.log('🔐 Navigating to Twitter login (mobile version)...');
+  await page.goto('https://mobile.x.com/login', { waitUntil: 'domcontentloaded', timeout: 60000 });
   await screenshot(page, '01_login_page');
   await humanDelay(page, 2000, 4000);
 
@@ -194,13 +194,19 @@ async function login(page) {
   }
 
   console.log('🔑 Entering password...');
-  await page.waitForSelector('input[name="password"]', { timeout: 10000 });
-  await humanType(page, 'input[name="password"]', password);
+  // Mobile site uses different selector
+  await page.waitForSelector('input[type="password"]', { timeout: 10000 });
+  await humanType(page, 'input[type="password"]', password);
   await humanDelay(page, 500, 1500);
 
   console.log('➡️ Clicking login...');
   await humanMouseMove(page);
-  await page.click('button[data-testid="LoginForm_Login_Button"]');
+  // Mobile: try multiple selectors for login button
+  try {
+    await page.click('div[role="button"]:has-text("Log in")');
+  } catch {
+    await page.click('input[type="submit"]');
+  }
   await humanDelay(page, 4000, 7000);
   await screenshot(page, '03_after_login');
 
