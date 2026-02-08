@@ -1,0 +1,21 @@
+{
+  "name": "twitter-automation-skill",
+  "version": "1.0.0",
+  "description": "FREE Twitter automation using Playwright with stealth",
+  "main": "skill.js",
+  "scripts": {
+    "post": "node skill.js post",
+    "timeline": "node skill.js timeline",
+    "search": "node skill.js search",
+    "like": "node skill.js like"
+  },
+  "dependencies": {
+    "playwright": "^1.40.0",
+    "playwright-extra": "^4.3.6",
+    "puppeteer-extra-plugin-stealth": "^2.11.2",
+    "dotenv": "^16.3.1"
+  },
+  "keywords": ["twitter", "automation", "playwright", "free", "openclaw"],
+  "author": "ShellFoundry",
+  "license": "MIT"
+}
