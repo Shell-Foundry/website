@@ -1,0 +1,14 @@
+APPROACH 3: Mobile Site with Enter Key + Screenshots
+
+Test Plan:
+1. Load mobile.x.com/login
+2. Fill username field
+3. Wait 3 seconds for page to update
+4. Take screenshot (manual check)
+5. Fill password field (if visible) OR find password field
+6. Press Enter to submit
+7. Take screenshot of result
+
+This avoids clicking "Next" and uses Enter key instead.
+
+Alternative: Desktop site x.com/login might have different flow
